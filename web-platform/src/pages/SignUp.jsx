@@ -25,7 +25,7 @@ const SignUp = () => {
     try {
       // Enviar los datos del formulario al servidor
       const res = await axios.post(
-        "http://localhost:3002/api/signup",
+        "http://localhost:3000/api/users/signup",
         formData
       );
       if (res.status === 200) {
@@ -38,7 +38,12 @@ const SignUp = () => {
           direccion: "",
           password: "",
         }); // Reiniciar el estado
-        navigate("/login"); // Redirigir al usuario a la página de login
+
+        const info = res.data;
+        console.log(info);
+        localStorage.setItem("token", info.token);
+
+        navigate("/home"); // Redirigir al usuario a la página de login
       }
     } catch (error) {
       console.log(error);

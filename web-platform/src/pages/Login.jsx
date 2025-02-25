@@ -12,7 +12,7 @@ const Login = () => {
   // variables de estado de los inputs
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const API_URL = "http://localhost:3002/api/users";
+  const API_URL = "http://localhost:3000/api/users/login";
 
   const navigate = useNavigate();
 
@@ -28,12 +28,7 @@ const Login = () => {
         setEmail("");
         setPassword("");
 
-        const response = await axios.post(
-          "http://localhost:3002/api/login",
-          {email, password}
-        );
-        
-        const info = response.data;
+        const info = res.data;
         console.log(info);
         localStorage.setItem("token", info.token);
 
