@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 const SwitchButton = ({type}) => {
-    console.log('type :>> ', type);
 
     if (type === CONSTANTS.LOGIN) {
         return (

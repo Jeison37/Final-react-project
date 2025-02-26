@@ -30,7 +30,7 @@ function App() {
       {/* <Route path="/" element={<Home />} /> */}
 
         <Route element={<PrivateRoute />}>
-          <Route path="/home" element={<h1>My profile</h1>} />
+          <Route path="/" element={<h1>My profile</h1>} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

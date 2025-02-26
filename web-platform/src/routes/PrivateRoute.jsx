@@ -7,6 +7,7 @@ export function PrivateRoute() {
     const token = localStorage.getItem("token");
     const validarSesion = async ()=>{
       try{
+        console.log('token :>> ', token);
         const res = await axios.get('http://localhost:3000/api/users',{
           headers:{
             'authorization': token

@@ -32,8 +32,8 @@ const Home = () => {
                         <thead>
                             <tr>
                                 <th>Estado</th>
-                                <th>Titulo</th>
-                                <th>Tecnico</th>
+                                <th>Título</th>
+                                <th>Técnico</th>
                                 <th>Informante</th>
                             </tr>
                         </thead>
@@ -41,7 +41,7 @@ const Home = () => {
                             <td>{ticket.estado}</td>
                             <td>{ticket.titulo}</td>
                             <td>{ticket.tecnico.nombre + " " + ticket.tecnico.apellido}</td>
-                            <td>{ticket.informante + " " + ticket.informante.apellido} </td>
+                            <td>{ticket.informante.nombre + " " + ticket.informante.apellido} </td>
                         </tr>
                     </table>
                 </>
