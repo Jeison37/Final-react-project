@@ -43,7 +43,7 @@ const Login = () => {
   return (
     <>
       <SignForm type={CONSTANTS.LOGIN}>
-        <form className="px-12 w-full" onSubmit={handleSubmit}>
+        <form className="px-12 w-full" onSubmit={handleSubmit} action="">
           <div className="w-full space-y-3">
 
             <SignInput label={"Email"} Name={"email"} valueVar={email} />
