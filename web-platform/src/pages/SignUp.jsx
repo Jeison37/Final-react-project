@@ -9,7 +9,7 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   // Estado inicial como un objeto
-  const [formData, setFormData] = useState({
+  const [data, setdata] = useState({
     nombre: "",
     apellido: "",
     userName: "",
@@ -26,11 +26,11 @@ const SignUp = () => {
       // Enviar los datos del formulario al servidor
       const res = await axios.post(
         "http://localhost:3000/api/users/signup",
-        formData
+        data
       );
       if (res.status === 200) {
         alert("Usuario registrado con éxito");
-        setFormData({
+        setdata({
           nombre: "",
           apellido: "",
           userName: "",
@@ -59,30 +59,30 @@ const SignUp = () => {
             <div className="grid grid-cols-2 gap-4">
               <SignInput
                 label={"Nombre"}
-                valueVar={formData.nombre} // Usar formData.nombre
+                valueVar={data.nombre} // Usar data.nombre
               />
               <SignInput
                 label={"Apellido"}
-                valueVar={formData.apellido} // Usar formData.apellido
+                valueVar={data.apellido} // Usar data.apellido
               />
             </div>
             <SignInput
               label={"Nombre de usuario"}
               Name={"username"}
-              valueVar={formData.userName} // Usar formData.userName
+              valueVar={data.userName} // Usar data.userName
             />
             <SignInput
               label={"Email"}
-              valueVar={formData.email} // Usar formData.email
+              valueVar={data.email} // Usar data.email
             />
             <SignInput
               label={"Direccion"}
-              valueVar={formData.direccion} // Usar formData.direccion
+              valueVar={data.direccion} // Usar data.direccion
             />
             <SignInput
               label={"Contraseña"}
               Name={"password"}
-              valueVar={formData.password} // Usar formData.password
+              valueVar={data.password} // Usar data.password
             />
           </div>
 
