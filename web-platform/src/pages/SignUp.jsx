@@ -9,10 +9,10 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   // Estado inicial como un objeto
-  const [data, setData] = useState({
+  const [data, setdata] = useState({
     nombre: "",
     apellido: "",
-    username: "",
+    userName: "",
     email: "",
     direccion: "",
     password: "",
@@ -30,10 +30,10 @@ const SignUp = () => {
       );
       if (res.status === 200) {
         alert("Usuario registrado con éxito");
-        setData({
+        setdata({
           nombre: "",
           apellido: "",
-          username: "",
+          userName: "",
           email: "",
           direccion: "",
           password: "",
@@ -51,45 +51,38 @@ const SignUp = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   return (
     <>
       <SignForm type={CONSTANTS.SIGNUP}>
-        <form className="px-14 w-full" onSubmit={handleSubmit}>
+        <form className="px-14 w-full" onSubmit={handleSubmit} action="">
           <div className="w-full space-y-2">
             <div className="grid grid-cols-2 gap-4">
               <SignInput
                 label={"Nombre"}
-                OnChangeVar={handleInputChange} // Usar data.nombre
+                valueVar={data.nombre} // Usar data.nombre
               />
               <SignInput
                 label={"Apellido"}
-                OnChangeVar={handleInputChange} // Usar data.apellido
+                valueVar={data.apellido} // Usar data.apellido
               />
             </div>
             <SignInput
               label={"Nombre de usuario"}
               Name={"username"}
-              OnChangeVar={handleInputChange} // Usar data.userName
+              valueVar={data.userName} // Usar data.userName
             />
             <SignInput
               label={"Email"}
-              OnChangeVar={handleInputChange} // Usar data.email
+              valueVar={data.email} // Usar data.email
             />
             <SignInput
               label={"Direccion"}
-              OnChangeVar={handleInputChange} // Usar data.direccion
+              valueVar={data.direccion} // Usar data.direccion
             />
             <SignInput
               label={"Contraseña"}
               Name={"password"}
-              OnChangeVar={handleInputChange} // Usar data.password
+              valueVar={data.password} // Usar data.password
             />
           </div>
 

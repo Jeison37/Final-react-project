@@ -10,29 +10,29 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // variables de estado de los inputs
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const API_URL = "http://localhost:3000/api/users/login";
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    console.log('data :>> ', data);
     e.preventDefault();
     try{
-      const res = await axios.post(API_URL, data);
+      const res = await axios.post(API_URL, {
+        email,
+        password
+      });
       if(res.status === 200){
-        alert("Usuario logeado con exito");
-        setData("");
+        alert("Usuario creado con exito");
+        setEmail("");
+        setPassword("");
 
         const info = res.data;
         console.log(info);
-        
         localStorage.setItem("token", info.token);
 
-        navigate("/");
+        navigate("/home");
       }
     }catch(error){
       console.log(error);
@@ -40,22 +40,15 @@ const Login = () => {
     
   }
 
-  const handleInputChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   return (
     <>
       <SignForm type={CONSTANTS.LOGIN}>
-        <form className="px-12 w-full" onSubmit={handleSubmit}>
+        <form className="px-12 w-full" onSubmit={handleSubmit} action="">
           <div className="w-full space-y-3">
 
-            <SignInput label={"Email"} Name={"email"} OnChangeVar={handleInputChange} />
+            <SignInput label={"Email"} Name={"email"} valueVar={email} />
 
-            <SignInput label={"Contraseña"} Name={"password"} OnChangeVar={handleInputChange} />
+            <SignInput label={"Contraseña"} Name={"password"} valueVar={password} />
 
           </div>
 
