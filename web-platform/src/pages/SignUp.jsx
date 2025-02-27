@@ -61,7 +61,7 @@ const SignUp = () => {
   return (
     <>
       <SignForm type={CONSTANTS.SIGNUP}>
-        <form className="px-14 w-full" onSubmit={handleSubmit}>
+        <form className="px-14 w-full " onSubmit={handleSubmit}>
           <div className="w-full space-y-2">
             <div className="grid grid-cols-2 gap-4">
               <SignInput
