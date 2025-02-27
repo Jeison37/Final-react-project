@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
 import { PrivateRoute } from './routes/PrivateRoute';
 import { Routes, Route, useLocation } from "react-router-dom";
+import CreateTicket from './pages/CreateTicket';
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,8 @@ function App() {
 
         <Route element={<PrivateRoute />}>
           <Route path="/" element={<h1>My profile</h1>} />
+          <Route path="/ticket/create" element={<CreateTicket />} />
+
         </Route>
 
         <Route path="*" element={<NotFound />} />
