@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const navigate = useNavigate();
 
-  // Estado inicial como un objeto
+  
   const [data, setData] = useState({
     nombre: "",
     apellido: "",
@@ -16,19 +16,21 @@ const SignUp = () => {
     email: "",
     direccion: "",
     password: "",
+    rol: 0
   });
 
-  // Función para manejar el envío del formulario
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Enviar los datos del formulario al servidor
+      
       const res = await axios.post(
         "http://localhost:3000/api/users/signup",
         data
       );
-      if (res.status === 200) {
+      console.log('res.status,res :>> ', res.status,res);
+      if (res.status === 201) {
         alert("Usuario registrado con éxito");
         setData({
           nombre: "",
@@ -37,16 +39,18 @@ const SignUp = () => {
           email: "",
           direccion: "",
           password: "",
-        }); // Reiniciar el estado
+          rol: 0
+        }); 
 
         const info = res.data;
         console.log(info);
         localStorage.setItem("token", info.token);
 
-        navigate("/home"); // Redirigir al usuario a la página de login
+        navigate("/"); 
       }
     } catch (error) {
       console.log(error);
+      console.log('data :>> ', data);
       alert("Error al registrar el usuario");
     }
   };
@@ -66,30 +70,30 @@ const SignUp = () => {
             <div className="grid grid-cols-2 gap-4">
               <SignInput
                 label={"Nombre"}
-                OnChangeVar={handleInputChange} // Usar data.nombre
+                OnChangeVar={handleInputChange} 
               />
               <SignInput
                 label={"Apellido"}
-                OnChangeVar={handleInputChange} // Usar data.apellido
+                OnChangeVar={handleInputChange} 
               />
             </div>
             <SignInput
               label={"Nombre de usuario"}
               Name={"username"}
-              OnChangeVar={handleInputChange} // Usar data.userName
+              OnChangeVar={handleInputChange} 
             />
             <SignInput
               label={"Email"}
-              OnChangeVar={handleInputChange} // Usar data.email
+              OnChangeVar={handleInputChange} 
             />
             <SignInput
               label={"Direccion"}
-              OnChangeVar={handleInputChange} // Usar data.direccion
+              OnChangeVar={handleInputChange} 
             />
             <SignInput
               label={"Contraseña"}
               Name={"password"}
-              OnChangeVar={handleInputChange} // Usar data.password
+              OnChangeVar={handleInputChange} 
             />
           </div>
 

@@ -4,11 +4,12 @@
 import './App.css'
 
 import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Signup from './pages/SignUp';
 import NotFound from './pages/NotFound';
 import { PrivateRoute } from './routes/PrivateRoute';
 import { Routes, Route, useLocation } from "react-router-dom";
 import CreateTicket from './pages/CreateTicket';
+import Home from './pages/Home';
 
 function App() {
   const location = useLocation();
@@ -28,10 +29,10 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
 
-      {/* <Route path="/" element={<Home />} /> */}
 
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<h1>My profile</h1>} />
+
+          <Route path="/" element={<Home />} />
           <Route path="/ticket/create" element={<CreateTicket />} />
 
         </Route>
