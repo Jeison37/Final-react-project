@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import { PrivateRoute } from './routes/PrivateRoute';
 import { Routes, Route, useLocation } from "react-router-dom";
 import CreateTicket from './pages/CreateTicket';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
   const showNavbarFooter = !hideNavbarFooter.includes(location.pathname);
   return (
     <>
-      {/* {showNavbarFooter && <Navbar />} */}
+      {showNavbarFooter && <Navbar />}
       <Routes>
         <Route path="/login" element={<Login />} />
 

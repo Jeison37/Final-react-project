@@ -6,6 +6,10 @@
   background: linear-gradient(to right, #27AE60, #2D9CDB);
 }
 
+.gradient-dark, body{
+  /* background: lightdark(#283D5B, #162130); */
+  background: linear-gradient(to bottom, #283D5B, #162130);
+}
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

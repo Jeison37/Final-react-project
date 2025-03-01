@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
     return ( 
         <>
@@ -7,27 +9,27 @@ const Navbar = () => {
 
   <ul className="h-full w-fit font-medium flex space-x-7 text-lg">
     <li className="w-fit h-full flex items-center ">
-      <a href="">
+      <Link to="/">
         Home
-      </a>
+      </Link>
     </li>
 
     <li className="w-fit h-full flex items-center ">
-      <a href="">
+      <Link to="ticket/create">
         Agregar ticket
-      </a>
+      </Link>
     </li>
 
     <li className="w-fit h-full flex items-center ">
-      <a href="">
+      <Link to="/dashboard">
         Estadisticas
-      </a>
+      </Link>
     </li>
 
     <li className="w-fit h-full flex items-center ">
-      <a href="">
+      <Link to="/chat">
         Area de chat en vivo
-      </a>
+      </Link>
     </li>
 
   </ul>

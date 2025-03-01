@@ -13,7 +13,6 @@ export function PrivateRoute() {
           }
         });
         const info = res.data;
-        console.log(info);
         setTokenValido(true);
       }catch(error){
         setTokenValido(false);
