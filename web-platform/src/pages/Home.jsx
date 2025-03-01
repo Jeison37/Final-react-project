@@ -6,11 +6,18 @@ const Home = () => {
     const API_URL = "http://localhost:3000/api/tickets";
     // eslint-disable-next-line no-unused-vars
     const [refresh, setRefresh] = useState(false);
+    const token = localStorage.getItem("token");
 
     useEffect(()=>{
         const fecthTickets = async()=>{
           try{
-            const response = await axios.get(API_URL);
+            const response = await axios.get(API_URL,
+              {
+                headers:{
+                  'authorization': token
+                }
+              }
+            );
             if( response.status === 200){
               setTickets(response.data);
             }
