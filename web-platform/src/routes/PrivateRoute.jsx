@@ -1,10 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { getCookie } from "utils/cookie";
+
 export function PrivateRoute() {
   const [tokenValido, setTokenValido] = useState(null);
   useEffect(()=>{
-    const token = localStorage.getItem("token");
+    const token = getCookie("token");
     const validarSesion = async ()=>{
       try{
         console.log('token :>> ', token);

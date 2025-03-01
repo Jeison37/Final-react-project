@@ -4,7 +4,7 @@ import SignInput from "../components/SignInput";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { createCookie } from "../utils/cookie";
 
 // import SwitchButton from "../components/SwitchButton";
 
@@ -30,7 +30,10 @@ const Login = () => {
         const info = res.data;
         console.log(info);
         
-        localStorage.setItem("token", info.token);
+        createCookie("token=" + info.token, 1);
+        createCookie("user_id=" + info.user.id, 1);
+        createCookie("imagen=" + info.user.imagen, 1);
+
 
         navigate("/");
       }
