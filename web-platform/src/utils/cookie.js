@@ -24,3 +24,5 @@ const getCookie = cookieName =>{
 
     return null;
 }
+
+export {createCookie, getCookie};
