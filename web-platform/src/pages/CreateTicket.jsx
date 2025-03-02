@@ -15,9 +15,9 @@ const CreateTicket = () => {
         const token = localStorage.getItem("token");
 
         try{
-            const res = await axios.post("http:localhost:3000/api/tickets", 
+            const res = await axios.post("http://localhost:3000/api/tickets/", 
+                data,
                 {
-                    ...data,
                     headers:{
                         authorization: token
                     }
@@ -43,22 +43,26 @@ const CreateTicket = () => {
 
     return ( 
         <>
-        <form className="" onSubmit={handleSubmit} action="">
+      <div className="min-h-screen w-full">
 
-            <input type="text" name="titulo" id="titulo" onChange={handleInputChange}/>
+            <form className="flex gap-4 pt-5" onSubmit={handleSubmit} action="">
 
-            <input type="text" name="descripcion" id="descripcion" onChange={handleInputChange}/>
+                <input type="text" name="titulo" id="titulo" onChange={handleInputChange}/>
 
-            <select name="visibilidad" id="visibilidad" onChange={handleInputChange}>
-                <option value="">Visibilidad</option>
-                <option value="1">Público</option>
-                <option value="0">Privado</option>
-            </select>
+                <input type="text" name="descripcion" id="descripcion" onChange={handleInputChange}/>
 
-            {/* <input type="file" name="imagen" id="imagen" onChange={(e) => setData({...data, imagen: e.target.files[0]})}/> */}
+                <select name="visibilidad" id="visibilidad" onChange={handleInputChange}>
+                    <option value="">Visibilidad</option>
+                    <option value="1">Público</option>
+                    <option value="0">Privado</option>
+                </select>
 
-            <button type="submit">Enviar</button>
-        </form>
+                {/* <input type="file" name="imagen" id="imagen" onChange={(e) => setData({...data, imagen: e.target.files[0]})}/> */}
+
+                <button type="submit">Enviar</button>
+            </form>
+
+      </div>
         </>
      );
 }

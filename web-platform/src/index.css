@@ -9,6 +9,7 @@
 .gradient-dark, body{
   /* background: lightdark(#283D5B, #162130); */
   background: linear-gradient(to bottom, #283D5B, #162130);
+  background-repeat: no-repeat;
 }
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
