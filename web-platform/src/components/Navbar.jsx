@@ -1,18 +1,19 @@
-import { Link } from "react-router-dom";
-import { getCookie } from "../utils/cookie";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { deleteCookies, getCookie } from "../utils/cookie";
 import { useRef, useState, useEffect } from "react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const refMenu = useRef(null);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
-    setAbierto(!open);
+    setOpen(!open);
   };
 
   const handleOutClick = (e) => {
     if (refMenu.current && !refMenu.current.contains(e.target)) {
-      setAbierto(false);
+      setOpen(false);
     }
   };
 
@@ -38,7 +39,7 @@ const Navbar = () => {
             </li>
 
             <li className="w-fit h-full flex items-center ">
-              <Link to="ticket/create">Agregar ticket</Link>
+              <Link to="/ticket/create">Agregar ticket</Link>
             </li>
 
             <li className="w-fit h-full flex items-center ">
@@ -52,19 +53,39 @@ const Navbar = () => {
         </div>
 
         <div className="h-full w-fit flex items-center">
-          <div className="size-fit relative ">
+          <div
+            ref={refMenu}
+            onClick={toggleMenu}
+            className="size-fit relative "
+          >
             <div className="h-11 w-11 rounded-full overflow-hidden bg-white">
-
-      <img className="size-full" src={getCookie("imagen") === "null" ?  "http://localhost:3000/images/users/profiles/default.webp" : getCookie("imagen")} alt="" />
-
+              <img
+                className="size-full"
+                src={
+                  getCookie("imagen") === "null"
+                    ? "http://localhost:3000/images/users/profiles/default.webp"
+                    : getCookie("imagen")
+                }
+                alt=""
+              />
             </div>
 
-            <div className="p-3 mt-1 w-fit absolute hidden  drop font-bold rounded-lg right-0 bg-white ">
-              <button className="">Perfil</button>
-              <button className="text-nowrap">Cerrar sesion</button>
-            </div>
-
-
+            {open && (
+              <div className="p-3 mt-1 w-fit absolute drop font-bold rounded-lg right-0 bg-white ">
+                <Link to="/profile" className="">
+                  Perfil
+                </Link>
+                <button
+                  onClick={() => {
+                    deleteCookies();
+                    navigate("/login");
+                  }}
+                  className="text-nowrap"
+                >
+                  Cerrar sesion
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </nav>

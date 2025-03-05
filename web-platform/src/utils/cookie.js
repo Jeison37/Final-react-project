@@ -25,4 +25,13 @@ const getCookie = cookieName =>{
     return null;
 }
 
-export {createCookie, getCookie};
+const deleteCookies = () => {
+    const cookies = document.cookie.split(";");
+    for (let cookie of cookies) {
+        const equal = cookie.indexOf("=");
+        const name = equal > -1 ? cookie.substring(0, equal) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+
+export {createCookie, getCookie, deleteCookies};
