@@ -6,7 +6,7 @@ const SignForm = ({children,type}) => {
     return ( 
         <>
 <div className="w-screen h-screen bg-white flex justify-center items-center">
-    <div className="max-w-[1212px] shadow-2xl shadow-black text-white w-full max-h-[812px] h-full grid grid-cols-2">
+    <div className="max-w-[1312px] shadow-2xl shadow-black text-white w-full max-h-[812px] h-full grid grid-cols-2">
         <div className="left-side gradient-gb flex flex-col justify-center items-center">
 
             <div className="flex flex-col ">

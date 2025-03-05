@@ -6,8 +6,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { createCookie } from "../utils/cookie";
 
-// import SwitchButton from "../components/SwitchButton";
-
 const Login = () => {
   // variables de estado de los inputs
   const [data, setData] = useState({
@@ -25,15 +23,16 @@ const Login = () => {
       const res = await axios.post(API_URL, data);
       if(res.status === 200){
         alert("Usuario logeado con exito");
-        setData("");
+        setData({
+          email: "",
+          password: "",
+        });
 
         const info = res.data;
         console.log(info);
         
         createCookie("token=" + info.token, 1);
-        createCookie("user_id=" + info.user.id, 1);
-        createCookie("imagen=" + info.user.imagen, 1);
-
+        createCookie("imagen=" + info.imagen, 1);
 
         navigate("/");
       }

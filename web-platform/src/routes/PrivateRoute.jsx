@@ -9,13 +9,13 @@ export function PrivateRoute() {
     const token = getCookie("token");
     const validarSesion = async ()=>{
       try{
-        const res = await axios.get('http://localhost:3000/api/users',{
+        const res = await axios.get('http://localhost:3000/api/users/auth',{
           headers:{
             'authorization': token
           }
         });
         const info = res.data;
-        console.log('info :>> ', info);
+
         setTokenValido(true);
       }catch(error){
         setTokenValido(false);

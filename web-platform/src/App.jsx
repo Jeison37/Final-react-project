@@ -11,6 +11,10 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import CreateTicket from './pages/CreateTicket';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import Chat from './pages/Chat';
+import Ticket from './pages/Ticket';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 
 function App() {
   const location = useLocation();
@@ -34,7 +38,11 @@ function App() {
         <Route element={<PrivateRoute />}>
 
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/ticket/create" element={<CreateTicket />} />
+          <Route path="/ticket/:id" element={<Ticket />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/chat" element={<Chat />} />
 
         </Route>
 

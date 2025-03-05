@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { CONSTANTS } from "../utils/constants";
+import { getCookie } from "../utils/cookie";
 
 const Home = () => {
     const [tickets, setTickets] = useState([]);
     const API_URL = "http://localhost:3000/api/tickets/main";
     // eslint-disable-next-line no-unused-vars
     const [refresh, setRefresh] = useState(false);
-    const token = localStorage.getItem("token");
+    const token = getCookie("token");
 
     useEffect(()=>{
         const fecthTickets = async()=>{
@@ -20,6 +21,7 @@ const Home = () => {
               }
             );
             if( response.status === 200){
+              console.log('response.data :>> ', response.data);
               setTickets(response.data.docs);
             }
           }catch(error){
