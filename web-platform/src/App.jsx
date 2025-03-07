@@ -15,6 +15,7 @@ import Chat from './pages/Chat';
 import Ticket from './pages/Ticket';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
+import PremiumArea from './pages/PremiumArea';
 
 function App() {
   const location = useLocation();
@@ -43,6 +44,8 @@ function App() {
           <Route path="/ticket/:id" element={<Ticket />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/area" element={<PremiumArea />} />
+
 
         </Route>
 

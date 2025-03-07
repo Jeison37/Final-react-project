@@ -1,4 +1,4 @@
-import { CONSTANTS } from "../utils/constants";
+import { CONST } from "../utils/constants";
 import SignForm from "../components/SignForm";
 import SignInput from "../components/SignInput";
 import { useState } from "react";
@@ -64,7 +64,7 @@ const SignUp = () => {
 
   return (
     <>
-      <SignForm type={CONSTANTS.SIGNUP}>
+      <SignForm type={CONST.SIGNUP}>
         <form className="px-14 w-full " onSubmit={handleSubmit}>
           <div className="w-full space-y-2">
             <div className="grid grid-cols-2 gap-4">

@@ -1,10 +1,10 @@
-import {CONSTANTS}  from "../utils/constants";
+import {CONST}  from "../utils/constants";
 import { Link } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
 const SwitchButton = ({type}) => {
 
-    if (type === CONSTANTS.LOGIN) {
+    if (type === CONST.LOGIN) {
         return (
             <>
             <Link to="/signup" className="switch-btn absolute top-8 right-6 text-lg flex rounded-full font-semibold overflow-hidden w-fit">
@@ -18,7 +18,7 @@ const SwitchButton = ({type}) => {
             
             </>
         );
-    } else if (type === CONSTANTS.SIGNUP) {
+    } else if (type === CONST.SIGNUP) {
         return (
             <Link to="/login" className="switch-btn absolute top-8 right-6 text-lg flex rounded-full font-semibold overflow-hidden w-fit">
                 <div className="gradient-gb py-2 px-4 ">

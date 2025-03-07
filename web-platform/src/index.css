@@ -11,6 +11,74 @@
   background: linear-gradient(to bottom, #283D5B, #162130);
   background-repeat: no-repeat;
 }
+
+.gradient-premium{
+  background: linear-gradient(to bottom, #20D9D0, #25B8E1);
+}
+
+.pendiente{
+  background-color: #fdac3c;
+}
+
+.resuelto{
+  background-color: #00cc6d;
+}
+
+.tbody-tickets >  tr.actions:not(:last-child) {
+  border-bottom: 1px solid #E7E7E7;
+  
+}
+
+
+/* pagination */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+
+  * {
+    color: #fff;
+    background-color: #1b3d5a;
+
+  }
+}
+
+.pagination__button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination__numbers {
+  display: flex;
+  color: #fff;
+  background-color: transparent;
+}
+
+.pagination__number {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination__number--active {
+  background: linear-gradient(to right, #27AE60, #2D9CDB);
+  color: white;
+
+
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

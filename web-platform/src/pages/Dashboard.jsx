@@ -1,15 +1,23 @@
-const Dashboard = () => {
-  return (
-    <>
-      <div className="min-h-screen w-full text-white">
-        <div className="py-9">
-          <h1 className="text-4xl font-bold text-center"></h1>
-        </div>
+import AdminDashboard from "../components/AdminDashboard";
+import TechnicalDashboard from "../components/TechnicalDashboard";
+import { getCookie } from "../utils/cookie";
 
-        
-      </div>
-    </>
-  );
+const Dashboard = () => {
+  /*   Funcionalidades para administradores.
+
+  Estadísticas.
+  El administrador podrá ver cuantos técnicos hay a disposición, podrá también observar quien es el técnico que mas problemas a resuelto, y quien es el técnico que menos a resuelto. 
+  
+   Funcionalidades para técnicos.
+  - Estadísticas.
+      - Un técnico podrá ver cuantos reportes hay, cuantos reportes ha resuelto, cuantos reportes no ha resuelto. */
+
+  const rol = getCookie("rol");
+  if (rol == CONST.ROL.ADMIN) {
+    return <AdminDashboard />;
+  } else if (rol == CONST.ROL.TECHNICAL) {
+    return <TechnicalDashboard />;
+  }
 };
 
 export default Dashboard;

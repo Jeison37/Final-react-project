@@ -1,11 +1,13 @@
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { deleteCookies, getCookie } from "../utils/cookie";
 import { useRef, useState, useEffect } from "react";
+import { CONST } from "../utils/constants";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const refMenu = useRef(null);
   const navigate = useNavigate();
+  const rol = getCookie("rol");
 
   const toggleMenu = () => {
     setOpen(!open);
@@ -41,14 +43,17 @@ const Navbar = () => {
             <li className="w-fit h-full flex items-center ">
               <Link to="/ticket/create">Agregar ticket</Link>
             </li>
+            {rol != CONST.ROL.USER && (
+              <li className="w-fit h-full flex items-center ">    
+                <Link to="/dashboard">Estadisticas</Link>
+              </li> 
+            )}
 
-            <li className="w-fit h-full flex items-center ">
-              <Link to="/dashboard">Estadisticas</Link>
-            </li>
-
-            <li className="w-fit h-full flex items-center ">
-              <Link to="/chat">Area de chat en vivo</Link>
-            </li>
+            {rol == CONST.ROL.USER && (
+              <li className="w-fit h-full flex items-center ">
+                <Link to="/chat">Area de chat en vivo</Link>
+              </li>
+            )}
           </ul>
         </div>
 
@@ -56,7 +61,7 @@ const Navbar = () => {
           <div
             ref={refMenu}
             onClick={toggleMenu}
-            className="size-fit relative "
+            className="size-fit relative cursor-pointer rounded-full"
           >
             <div className="h-11 w-11 rounded-full overflow-hidden bg-white">
               <img

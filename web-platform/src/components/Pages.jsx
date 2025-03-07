@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const Pages = ({ totalPages, currentPage: initialPage, onPageChange }) => {
-  const [currentPage, setCurrentPage] = useState(initialPage || 1);
+const Pages = ({ totalPages, currentPage, setCurrentPage, onPageChange }) => {
+// console.log('totalPages, currentPage,  :>> ', totalPages, currentPage, );
 
   const getPageNumbers = () => {
     if (totalPages <= 10) {
@@ -41,28 +41,24 @@ const Pages = ({ totalPages, currentPage: initialPage, onPageChange }) => {
   const pageNumbers = getPageNumbers();
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-      <button onClick={handlePrevPage} disabled={currentPage === 1}>
+    <div className="pagination">
+      <button className='pagination__button' id='prev' onClick={handlePrevPage} disabled={currentPage === 1}>
         Anterior
       </button>
-      {pageNumbers.map((num) => (
-        <button
-          key={num}
-          onClick={() => handlePageChange(num)}
-          style={{
-            margin: '0 5px',
-            padding: '8px 12px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            backgroundColor: currentPage === num ? '#007bff' : 'transparent',
-            color: currentPage === num ? 'white' : 'black',
-            cursor: 'pointer',
-          }}
-        >
-          {num}
-        </button>
-      ))}
-      <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+
+      <div className="pagination__numbers">
+        {pageNumbers.map((num) => (
+          <button
+            key={num}
+            onClick={() => handlePageChange(num)}
+            className={"pagination__number " + (num === currentPage ? "pagination__number--active" : '')}
+          >
+            {num}
+          </button>
+        ))}
+      </div>
+
+      <button className='pagination__button' id='next' onClick={handleNextPage} disabled={currentPage === totalPages}>
         Siguiente
       </button>
     </div>

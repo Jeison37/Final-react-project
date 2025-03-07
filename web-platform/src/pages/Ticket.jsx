@@ -1,4 +1,7 @@
 import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { getCookie } from "../utils/cookie";
 
 const Ticket = () => {
     let params = useParams();
@@ -18,6 +21,7 @@ const Ticket = () => {
               }
             );
             if( response.status === 200){
+              setComments(response.data.comentarios);
                 
             }
           }catch(error){

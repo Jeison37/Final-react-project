@@ -1,4 +1,4 @@
-import {CONSTANTS} from "../utils/constants";
+import {CONST} from "../utils/constants";
 import SignForm from "../components/SignForm";
 import SignInput from "../components/SignInput";
 import { useState } from "react";
@@ -32,6 +32,7 @@ const Login = () => {
         
         createCookie("token=" + info.token, 1);
         createCookie("imagen=" + info.imagen, 1);
+        createCookie("rol=" + info.rol, 1);
 
         navigate("/");
       }
@@ -50,7 +51,7 @@ const Login = () => {
 
   return (
     <>
-      <SignForm type={CONSTANTS.LOGIN}>
+      <SignForm type={CONST.LOGIN}>
         <form className="px-12 w-full" onSubmit={handleSubmit}>
           <div className="w-full space-y-3">
 

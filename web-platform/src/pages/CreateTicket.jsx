@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { getCookie } from "../utils/cookie";
 
 const CreateTicket = () => {
     const [data, setData] = useState({
@@ -12,7 +13,7 @@ const CreateTicket = () => {
 
     const handleSubmit = async (e) =>{
         e.preventDefault();
-        const token = localStorage.getItem("token");
+        const token = getCookie("token");
 
         try{
             const res = await axios.post("http://localhost:3000/api/tickets/", 
