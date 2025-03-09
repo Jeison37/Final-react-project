@@ -44,7 +44,7 @@ const SignUp = () => {
 
         const info = res.data;
         console.log(info);
-        localStorage.setItem("token", info.token);
+        createCookie("token=" + info.token, 1);
 
         navigate("/"); 
       }

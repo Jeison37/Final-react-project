@@ -1,9 +1,9 @@
-const DashboardCard = ({label, value, color}) => {
+const DashboardCard = ({label = "", value = "", color, bgc = ""}) => {
   return (
     <>
       <div className=" flex rounded-xl overflow-hidden">
 
-        <div className={`bg-[${color}] flex-shrink-0 size-28`}></div>
+        <div className={ bgc +  "  flex-shrink-0 size-28"}></div>
 
         <div className="flex-grow bg-[#23282d] ">
 

@@ -13,6 +13,7 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [likes, setLikes] = useState({});
   const token = getCookie("token");
+  const rol = getCookie("rol");
 
   useEffect(() => {
     const fecthTickets = async () => {
@@ -31,7 +32,6 @@ const Home = () => {
           setTickets(response.data);
           // console.log('Hola desde response de tickets :>> ', );
           // tickets.docs && console.log('tickets :>> ', tickets);
-          
         }
       } catch (error) {
         console.log(error);
@@ -43,50 +43,105 @@ const Home = () => {
   useEffect(() => {
     if (tickets.docs) {
       const newLikes = {};
-      tickets.docs.forEach(ticket => {
+      tickets.docs.forEach((ticket) => {
         if (ticket.likesCount !== undefined) {
-          newLikes[ticket._id] = { count: ticket.likesCount, liked: ticket.userLiked };
+          newLikes[ticket._id] = {
+            count: ticket.likesCount,
+            liked: ticket.userLiked,
+          };
         }
       });
       setLikes(newLikes);
     }
   }, [tickets]);
 
-
-  
   const toggleLike = async (ticketId) => {
-    console.log('ticketId hola desde handleLike :>> ', ticketId);
     try {
-        const response = await axios.post(
-            'http://localhost:3000/api/likes-ticket/',
-            { id_ticket: ticketId}, 
-            {
-                headers: {
-                    authorization: token,
-                },
-            }
-        );
-
-        if (response.status === 200) {
-          // Dislike realizado
-            setLikes((prevLikes) => {
-                const newLikes = { ...prevLikes };
-                newLikes[ticketId] = { ...newLikes[ticketId], count: newLikes[ticketId].count - 1, liked: false };
-                return newLikes;
-            });
+      const response = await axios.post(
+        "http://localhost:3000/api/likes-ticket/",
+        { id_ticket: ticketId },
+        {
+          headers: {
+            authorization: token,
+          },
         }
+      );
 
-        if (response.status === 201) {
-            // Like realizado
-            setLikes((prevLikes) => ({
-                ...prevLikes,
-                [ticketId]: { count: (prevLikes[ticketId]?.count || tickets.docs.find((t) => t._id === ticketId).likesCount) + 1, liked: true },
-            }));
-        }
+      if (response.status === 200) {
+        // Dislike realizado
+        setLikes((prevLikes) => {
+          const newLikes = { ...prevLikes };
+          newLikes[ticketId] = {
+            ...newLikes[ticketId],
+            count: newLikes[ticketId].count - 1,
+            liked: false,
+          };
+          return newLikes;
+        });
+      }
+
+      if (response.status === 201) {
+        // Like realizado
+        setLikes((prevLikes) => ({
+          ...prevLikes,
+          [ticketId]: {
+            count:
+              (prevLikes[ticketId]?.count ||
+                tickets.docs.find((t) => t._id === ticketId).likesCount) + 1,
+            liked: true,
+          },
+        }));
+      }
     } catch (error) {
-        console.log('error :>> ', error);
+      console.log("error :>> ", error);
     }
-};
+  };
+
+  const changeStatus = async (ticketId, estado) => {
+
+    try {
+      const response = await axios.put(
+        "http://localhost:3000/api/tickets/status",
+        { id_ticket: ticketId , estado},
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setRefresh(!refresh);
+
+      }
+
+    } catch (error) {
+      console.log("error :>> ", error);
+    }
+  };
+
+  const assignTechnician = async (ticketId) => {
+    console.log('hola :>> ', );
+    try {
+      const response = await axios.put(
+        "http://localhost:3000/api/tickets/assign",
+        { id_ticket: ticketId },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setRefresh(!refresh);
+
+      }
+
+    } catch (error) {
+      console.log("error :>> ", error);
+    }
+  };
 
   const onPageChange = (page) => {
     console.log(page);
@@ -113,7 +168,8 @@ const Home = () => {
               </thead>
 
               <tbody className="tbody-tickets text-center">
-                {(tickets.docs && likes) &&
+                {tickets.docs &&
+                  likes &&
                   tickets.docs.map((ticket) => {
                     const estado = CONST.ESTADOS[ticket.estado];
                     if (ticket.visibilidad)
@@ -133,23 +189,29 @@ const Home = () => {
                               </div>
                             </td>
                             <td>{ticket.titulo}</td>
-                            <td>
-                              {ticket.id_tecnico?.username}
-                            </td>
+                            <td>{ticket.id_tecnico?.username}</td>
                             <td>{ticket.id_usuario.username} </td>
                           </tr>
                           <tr key={"1" + ticket._id} className="actions">
                             <td colSpan="4">
-                              <div className="flex gap-x-4 px-5">
-                                <button onClick={() => toggleLike(ticket._id)} className={"flex items-center" + (likes[ticket._id]?.liked ? " text-green-600" : "text-white")}>
+                              <div className="flex gap-x-4 px-5 py-1">
+                                <button
+                                  onClick={() => toggleLike(ticket._id)}
+                                  className={
+                                    "flex items-center" +
+                                    (likes[ticket._id]?.liked
+                                      ? " text-green-600"
+                                      : " text-white")
+                                  }
+                                >
                                   {likes && likes[ticket._id]?.count}
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className="h-6 pb-1 w-6 " 
+                                    className="h-6 pb-1 w-6 "
                                     viewBox="0 0 24 24"
                                     fill="none"
                                     stroke="currentColor"
-                                    strokeWidth="4" 
+                                    strokeWidth="4"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                   >
@@ -161,6 +223,15 @@ const Home = () => {
                                     {ticket.commentsCount} Comentarios
                                   </span>
                                 </Link>
+
+                                {(rol == CONST.ROL.TECHNICAL) && (
+                                  <>
+                                    <button onClick={() => changeStatus(ticket._id, estado === "Resuelto"
+                                    ? 0
+                                    : 1)} className="">Cambiar estado</button>
+                                    <button onClick={() => assignTechnician(ticket._id)} className="">Asignarse</button>
+                                  </>
+                                )}
                               </div>
                             </td>
                           </tr>

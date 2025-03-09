@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { deleteCookies, getCookie } from "../utils/cookie";
 import { useRef, useState, useEffect } from "react";
 import { CONST } from "../utils/constants";
@@ -8,6 +8,7 @@ const Navbar = () => {
   const refMenu = useRef(null);
   const navigate = useNavigate();
   const rol = getCookie("rol");
+  const location = useLocation();
 
   const toggleMenu = () => {
     setOpen(!open);
@@ -33,24 +34,24 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="h-16 flex justify-between px-7 shadow-lg shadow-[#0007]  bg-[#1B3D5A]">
+      <nav className="h-16 flex justify-between pe-7 shadow-lg shadow-[#0007]  bg-[#1B3D5A]">
         <div className="h-full w-fit text-white ">
-          <ul className="h-full w-fit font-medium flex space-x-7 text-lg">
-            <li className="w-fit h-full flex items-center ">
+          <ul className="h-full w-fit font-medium flex  text-lg">
+            <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/" && " gradient-gb")}>
               <Link to="/">Home</Link>
             </li>
 
-            <li className="w-fit h-full flex items-center ">
+            <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/ticket/create" && " gradient-gb")}>
               <Link to="/ticket/create">Agregar ticket</Link>
             </li>
             {rol != CONST.ROL.USER && (
-              <li className="w-fit h-full flex items-center ">    
+              <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/dashboard"  && " gradient-gb")}>    
                 <Link to="/dashboard">Estadisticas</Link>
               </li> 
-            )}
+             )}
 
             {rol == CONST.ROL.USER && (
-              <li className="w-fit h-full flex items-center ">
+              <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/chat" && " gradient-gb")}>
                 <Link to="/chat">Area de chat en vivo</Link>
               </li>
             )}
@@ -63,7 +64,7 @@ const Navbar = () => {
             onClick={toggleMenu}
             className="size-fit relative cursor-pointer rounded-full"
           >
-            <div className="h-11 w-11 rounded-full overflow-hidden bg-white">
+            <div className="size-11 rounded-full overflow-hidden bg-white">
               <img
                 className="size-full"
                 src={

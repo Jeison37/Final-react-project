@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCookie } from "../utils/cookie";
+import { createCookie, getCookie } from "../utils/cookie";
 import axios from "axios";
 import ProfileRow from "../components/ProfileRow";
 
@@ -18,10 +18,8 @@ const Profile = () => {
           },
         });
         if (res.status === 200) {
-          console.log("response.data :>> ", res.data);
-          await setUser(res.data);
 
-          setImagen( user.imagen ?? "http://localhost:3000/images/users/profiles/default.webp");
+          setUser(res.data);
         }
       } catch (error) {
         console.log(error);
@@ -32,23 +30,29 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      const res = await axios.post(API_URL, data);
-      if(res.status === 200){
-        alert("Usuario logeado con exito");
-        setData({
-          email: "",
-          password: "",
-        });
+    try {
+      const formData = new FormData();
+      formData.append("pathname", "users/profiles");
+  
+      for (const key in user) {
+        formData.append(key, user[key]);
+      }
+      
+      if (imagen) {
+        formData.append("imagen", imagen);
+      }
+  
+      const res = await axios.put("http://localhost:3000/api/users/profile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: token,
+        }
 
-        const info = res.data;
-        console.log(info);
-        
-        createCookie("token=" + info.token, 1);
-        createCookie("imagen=" + info.imagen, 1);
-        createCookie("rol=" + info.rol, 1);
+      });
 
-        navigate("/");
+      if (res.status === 200) {
+        createCookie("imagen=" + res.data.imagen, 1);
+        location.reload();
       }
     }catch(error){
       console.log(error);
@@ -71,7 +75,7 @@ const Profile = () => {
             <h1 className="text-4xl font-bold ps-4 ">Perfil</h1>
           </div>
           
-          <form action="" className="">
+          <form action="" className="" onSubmit={handleSubmit} encType="multipart/form-data">
             
             <ProfileRow label="Nombre" valueVar={user.nombre} changeVar={handleInputChange} />
             <ProfileRow label="Apellido" valueVar={user.apellido} changeVar={handleInputChange} />
@@ -82,17 +86,19 @@ const Profile = () => {
                 <h2 className="font-bold">Imagen</h2>
               </div>
               <div className="size-16 rounded-full overflow-hidden bg-white">
-{imagen && (                <img
+            <img
                   className="size-full"
-                  src={imagen}
+                  src={ user.imagen ?? "http://localhost:3000/images/users/profiles/default.webp"}
                   alt=""
-                />)}
+                />
               </div>
               <div className="">
-                <input className="bg-black" type="file" name="imagen" id="imagen" value={user.imagen} onChange={handleInputChange} />
+                <input className="bg-black" type="file" name="imagen" id="imagen" onChange={(e) => setImagen(e.target.files[0])} />
               </div>
             </div>
             <ProfileRow label="Dirección" idVar="direccion" valueVar={user.direccion} changeVar={handleInputChange} />
+
+            <button>Actualizar</button>
           </form>
 
 

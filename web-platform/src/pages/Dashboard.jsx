@@ -1,6 +1,7 @@
 import AdminDashboard from "../components/AdminDashboard";
-import TechnicalDashboard from "../components/TechnicalDashboard";
+import TechnicianDashboard from "../components/TechnicianDashboard";
 import { getCookie } from "../utils/cookie";
+import { CONST } from "../utils/constants";
 
 const Dashboard = () => {
   /*   Funcionalidades para administradores.
@@ -16,7 +17,7 @@ const Dashboard = () => {
   if (rol == CONST.ROL.ADMIN) {
     return <AdminDashboard />;
   } else if (rol == CONST.ROL.TECHNICAL) {
-    return <TechnicalDashboard />;
+    return <TechnicianDashboard />;
   }
 };
 

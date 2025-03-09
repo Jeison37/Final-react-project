@@ -29,6 +29,45 @@
   
 }
 
+/* Ticket */
+
+.ticket{
+  background-color: #1b3d5a;
+  min-width: 350px;
+  border-radius: 26px;
+  border: 2px solid #acacac;
+}
+
+.ticket__head{
+  border-bottom: 2px solid #acacac;
+
+  .username{
+    max-width: 110px;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+  }
+
+}
+
+.tag-author{
+  border-radius: 8px;
+  background-color: #7ED0FF;
+  color: #000;
+  padding: 5px 10px;
+  font-weight: 600;
+  
+}
+
+/* Dashboard */
+
+.card-box{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 350px));
+  justify-content: center;
+  column-gap: 4rem;
+  row-gap: 2rem;
+  
+}
 
 /* pagination */
 
@@ -78,6 +117,8 @@
 
 
 }
+
+
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
