@@ -181,4 +181,15 @@ const HomeUser = () => {
   );
 };
 
+/* 
+const verifyVisibility = entries =>{
+    const entry = entries[0];
+    console.log(entry.isIntersecting)
+}
+
+const observer = new IntersectionObserver(verifyVisibility)
+
+// observer.observe(caja3)
+*/
+
 export default HomeUser;

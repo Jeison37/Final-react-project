@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { CONST } from "../utils/constants";
+import axios from "axios";
 
 const Chat = () => {
   const socket = useRef(null);
@@ -18,6 +20,22 @@ const Chat = () => {
       }
     };
   }, []);
+
+  const createChat = async e  =>  {
+    const res = await axios.post("http://localhost:3000/api/chats")
+    socket.current = new WebSocket('ws://localhost:8080');
+    const data = {type: CONST.WS.CREATE_CHAT, id_chat: res.data._id}
+    socket.current.send(JSON.stringify(data));
+
+  }
+
+  const addTechnician = async e  =>  {
+    const res = await axios.put("http://localhost:3000/api/chats")
+    socket.current = new WebSocket('ws://localhost:8080');
+    const data = {type: CONST.WS.CREATE_CHAT, id_chat: res.data._id}
+    socket.current.send(JSON.stringify(data));
+
+  }
 
   function sendMessage(e) {
     e.preventDefault();
@@ -45,6 +63,10 @@ const Chat = () => {
             <li key={index}>{message}</li>
           ))}
         </ul>
+
+        <button className="px-2" onClick={createChat}>
+          Solicitar chat en vivo
+        </button>
       </div>
     </>
   );

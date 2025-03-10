@@ -1,14 +1,6 @@
 import { Link } from "react-router-dom";
 import { CONST } from "../utils/constants";
-/* 
-              <Ticket
-                key={ticket._id}
-                ticket={ticket}
-                toggleLike={toggleLike}
-                changeStatus={changeStatus}
-                assignTechnician={assignTechnician}
-                likes={likes}
-              /> */
+
 const Ticket = ({
   ticket,
   setRefresh,
@@ -87,7 +79,7 @@ const Ticket = ({
               />
               </div>
 
-              <h2 className="text-[#7ED0FF] font-bold username">
+              <h2 className="text-[#7ED0FF] md:max-w-[160px] max-w-[130px] font-bold username">
               {ticket.id_usuario.username}
               </h2>
 

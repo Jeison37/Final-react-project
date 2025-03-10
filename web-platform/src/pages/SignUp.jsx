@@ -44,7 +44,9 @@ const SignUp = () => {
 
         const info = res.data;
         console.log(info);
-        createCookie("token=" + info.token, 1);
+        createCookie("token=" + info.token, 4);
+        createCookie("imagen=" + info.imagen, 4);
+        createCookie("rol=" + info.rol, 4);
 
         navigate("/"); 
       }

@@ -77,7 +77,7 @@ const Navbar = () => {
             </div>
 
             {open && (
-              <div className="p-3 mt-1 w-fit absolute drop font-bold rounded-lg right-0 bg-white ">
+              <div className="p-3 mt-1 w-fit space-y-3 absolute drop font-bold rounded-lg right-0 bg-white ">
                 <Link to="/profile" className="">
                   Perfil
                 </Link>

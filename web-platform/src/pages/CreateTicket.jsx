@@ -3,6 +3,7 @@ import { useState } from "react";
 import { getCookie } from "../utils/cookie";
 
 const CreateTicket = () => {
+    const [imagen, setImagen] = useState(null);
     const [data, setData] = useState({
         titulo: "",
         descripcion: "",
@@ -15,11 +16,25 @@ const CreateTicket = () => {
         e.preventDefault();
         const token = getCookie("token");
 
+        
+        
         try{
+            const formData = new FormData();
+            formData.append("pathname", "users/tickets");
+        
+            for (const key in data) {
+              formData.append(key, data[key]);
+            }
+            
+            if (imagen) {
+              formData.append("imagen", imagen);
+            }
+
             const res = await axios.post("http://localhost:3000/api/tickets/", 
-                data,
+                formData,
                 {
                     headers:{
+                        "Content-Type": "multipart/form-data",
                         authorization: token
                     }
                 }
@@ -46,7 +61,7 @@ const CreateTicket = () => {
         <>
       <div className="min-h-screen w-full">
 
-            <form className="flex gap-4 pt-5" onSubmit={handleSubmit} action="">
+            <form className="flex gap-4 pt-5" onSubmit={handleSubmit} action="" encType="multipart/form-data">
 
                 <input type="text" name="titulo" id="titulo" onChange={handleInputChange}/>
 
@@ -58,7 +73,9 @@ const CreateTicket = () => {
                     <option value="0">Privado</option>
                 </select>
 
-                {/* <input type="file" name="imagen" id="imagen" onChange={(e) => setData({...data, imagen: e.target.files[0]})}/> */}
+                <div className="">
+                <input className="bg-black" type="file" name="imagen" id="imagen" onChange={(e) => setImagen(e.target.files[0])} />
+              </div>
 
                 <button type="submit">Enviar</button>
             </form>

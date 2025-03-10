@@ -9,5 +9,10 @@ export const CONST = Object.freeze({
         USER: 0,
         TECHNICAL: 1,
         ADMIN: 2
+    },
+    WS:{
+        CREATE_CHAT:0,
+        TECHNICIAN_CONNECTED:1,
+        MESSAGE:2
     }
 });

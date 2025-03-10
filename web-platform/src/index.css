@@ -42,8 +42,8 @@
   border-bottom: 2px solid #acacac;
 
   .username{
-    max-width: 110px;
     text-wrap: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
   }
 

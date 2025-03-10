@@ -1,4 +1,5 @@
 import DashboardCard from "./DashboardCard";
+import TicketsTable from "./TicketsTable";
 
 const TechnicianDashboard = () => {
     return (
@@ -16,7 +17,9 @@ const TechnicianDashboard = () => {
                 <DashboardCard label="Reportes no resueltos" value="5"  bgc="bg-[#fdac3c]" />
               </div>
             </div>
-    
+
+            <TicketsTable url="http://localhost:3000/api/tickets/main/pending" />
+
           </div>
         </>
       );
