@@ -4,6 +4,7 @@ import SignInput from "../components/SignInput";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { createCookie } from "../utils/cookie";
 
 const SignUp = () => {
   const navigate = useNavigate();

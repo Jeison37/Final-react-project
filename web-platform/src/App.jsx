@@ -25,7 +25,7 @@ function App() {
   const hideNavbarFooter = ["/login", "/signup"];
 
   // Condicionar la visualizacion del navbar para que no aparesca en estas rutas
-  // eslint-disable-next-line no-unused-vars
+
   const showNavbarFooter = !hideNavbarFooter.includes(location.pathname);
   return (
     <>

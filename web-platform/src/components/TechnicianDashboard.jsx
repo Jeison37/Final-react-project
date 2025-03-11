@@ -6,7 +6,7 @@ const TechnicianDashboard = () => {
         <>
           <div className="min-h-screen w-full text-white">
             <div className="py-9">
-              <h1 className="text-4xl font-bold text-center"></h1>
+              <h1 className="text-4xl font-bold text-center">Dashboard</h1>
     
             </div>
 

@@ -6,7 +6,7 @@ const PremiumArea = () => {
     try {
     const res = await axios.post('http://localhost:3000/api/paypal/create-order');
     console.log('res :>> ', res);
-    const win = window.open(res.data.redirectUrl, '_blank');
+    const win = window.open(res.data.redirectUrl);
     
     win.focus();
 
