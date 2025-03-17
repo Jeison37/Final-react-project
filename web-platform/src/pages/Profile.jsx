@@ -10,7 +10,7 @@ const Profile = () => {
   const token = getCookie("token");
 
   useEffect(() => {
-    const fecthTickets = async () => {
+    const fecthUser = async () => {
       try {
         const res = await axios.get("http://localhost:3000/api/users/profile", {
           headers: {
@@ -18,14 +18,13 @@ const Profile = () => {
           },
         });
         if (res.status === 200) {
-
           setUser(res.data);
         }
       } catch (error) {
         console.log(error);
       }
     };
-    fecthTickets();
+    fecthUser();
   }, [refresh]);
 
   const handleSubmit = async (e) => {
@@ -69,7 +68,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="min-h-screen w-full text-white">
+      <div className=" w-full text-white">
         <div className="w-full px-24">
           <div className="py-9">
             <h1 className="text-4xl font-bold ps-4 ">Perfil</h1>

@@ -9,6 +9,7 @@ import { createCookie } from "../utils/cookie";
 const SignUp = () => {
   const navigate = useNavigate();
 
+  const [warn, setWarn] = useState("");
   
   const [data, setData] = useState({
     nombre: "",
@@ -20,9 +21,31 @@ const SignUp = () => {
     rol: 0
   });
 
+
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    for ( const key in data) {
+      if (data[key] === "") {
+        setWarn("Todos los campos son obligatorios");
+        return
+      }
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+        setWarn("Por favor, ingrese un email válido.");
+        return;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(data.password)) {
+        setWarn("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.");
+        return;
+    }
+
 
     try {
       
@@ -41,7 +64,7 @@ const SignUp = () => {
           direccion: "",
           password: "",
           rol: 0
-        }); 
+        });
 
         const info = res.data;
         console.log(info);
@@ -52,13 +75,14 @@ const SignUp = () => {
         navigate("/"); 
       }
     } catch (error) {
-      console.log(error);
-      console.log('data :>> ', data);
-      alert("Error al registrar el usuario");
+  
+      setWarn(error.response.data.message);
+
     }
   };
 
   const handleInputChange = (e) => {
+    if (warn) setWarn("");
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -68,6 +92,7 @@ const SignUp = () => {
   return (
     <>
       <SignForm type={CONST.SIGNUP}>
+        <span className="text-red-600 w-full px-10 text-center">{warn}</span>
         <form className="px-14 w-full " onSubmit={handleSubmit}>
           <div className="w-full space-y-2">
             <div className="grid grid-cols-2 gap-4">
@@ -95,6 +120,7 @@ const SignUp = () => {
             />
             <SignInput
               label={"Contraseña"}
+              type="password"
               Name={"password"}
               OnChangeVar={handleInputChange} 
             />

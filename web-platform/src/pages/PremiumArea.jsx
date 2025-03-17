@@ -1,14 +1,23 @@
 import axios from "axios";
+import { getCookie } from "../utils/cookie";
 
 const PremiumArea = () => {
+  const token = getCookie("token");
+
 
   const handleClick = async () => {
     try {
-    const res = await axios.post('http://localhost:3000/api/paypal/create-order');
+      console.log('token :>> ', token);
+    const res = await axios.post('http://localhost:3000/api/paypal/create-order',
+      {},
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
     console.log('res :>> ', res);
-    const win = window.open(res.data.redirectUrl);
-    
-    win.focus();
+    window.location.replace(res.data.redirectUrl);
 
     } catch (error) {
       console.log(error);
@@ -16,8 +25,7 @@ const PremiumArea = () => {
   }
     return ( 
         <>
-      <div className="min-h-screen flex justify-center items-center w-full text-white">
-
+      <div className=" flex justify-center items-center w-full text-white">
         <div className="flex-grow flex flex-col  justify-center items-center">
         <div className="py-8">
           <h1 className="text-4xl font-bold text-center">Area Premium</h1>

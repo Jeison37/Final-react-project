@@ -10,11 +10,10 @@ const HomeUser = () => {
   const [tickets, setTickets] = useState({});
   const API_URL = "http://localhost:3000/api/tickets/main";
   // eslint-disable-next-line no-unused-vars
-  const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [refresh, setRefresh] = useState(false);
   const [likes, setLikes] = useState({});
   const token = getCookie("token");
-  const rol = getCookie("rol");
 
   useEffect(() => {
     const fecthTickets = async () => {
@@ -119,7 +118,6 @@ const HomeUser = () => {
   };
 
   const assignTechnician = async (ticketId) => {
-    console.log("hola :>> ");
     try {
       const response = await axios.put(
         "http://localhost:3000/api/tickets/assign",

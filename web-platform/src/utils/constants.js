@@ -7,7 +7,7 @@ export const CONST = Object.freeze({
     },
     ROL:{
         USER: 0,
-        TECHNICAL: 1,
+        TECHNICIAN: 1,
         ADMIN: 2
     },
     WS:{

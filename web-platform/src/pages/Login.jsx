@@ -16,8 +16,25 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const [warn, setWarn] = useState("");
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    for ( const key in data) {
+      if (data[key] === "") {
+        setWarn("Todos los campos son obligatorios");
+        return
+      }
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email)) {
+        setWarn("Por favor, ingrese un email válido.");
+        return;
+    }
+
     try{
       const res = await axios.post(API_URL, data);
       if(res.status === 200){
@@ -37,12 +54,16 @@ const Login = () => {
         navigate("/");
       }
     }catch(error){
+
+      setWarn(error.response.data.message);
+
       console.log(error);
     }
     
   }
 
   const handleInputChange = (e) => {
+    if (warn) setWarn("");
     setData({
       ...data,
       [e.target.name]: e.target.value,
@@ -52,12 +73,13 @@ const Login = () => {
   return (
     <>
       <SignForm type={CONST.LOGIN}>
+      <span className="text-red-600 w-full px-10 text-center">{warn}</span>
         <form className="px-12 w-full" onSubmit={handleSubmit}>
           <div className="w-full space-y-3">
 
             <SignInput label={"Email"} Name={"email"} OnChangeVar={handleInputChange} />
 
-            <SignInput label={"Contraseña"} Name={"password"} OnChangeVar={handleInputChange} />
+            <SignInput label={"Contraseña"} Name={"password"} type="password" OnChangeVar={handleInputChange} />
 
           </div>
 

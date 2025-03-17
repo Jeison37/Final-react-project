@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { CONST } from "../utils/constants";
+import { formatDate } from "../utils/formatDate";
 
 const Ticket = ({
   ticket,
@@ -45,21 +46,7 @@ const Ticket = ({
 
   const estado = CONST.ESTADOS[ticket.estado];
   
-  const date = new Date(ticket.createdAt);
-  
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-  const formattedDate = `${year}/${month.toString().padStart(2, "0")}/${day
-    .toString()
-    .padStart(2, "0")}`;
-
-  const formattedTime = date.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true,
-  });
+  const {formattedDate, formattedTime} = formatDate(ticket.createdAt);
 
   return (
     <>
@@ -79,7 +66,7 @@ const Ticket = ({
               />
               </div>
 
-              <h2 className="text-[#7ED0FF] md:max-w-[160px] max-w-[130px] font-bold username">
+              <h2 className="text-[#7ED0FF] md:max-w-[160px] max-w-[110px] font-bold username">
               {ticket.id_usuario.username}
               </h2>
 
@@ -96,7 +83,7 @@ const Ticket = ({
           </div>
 
           <div className="w-full flex items-center py-2 px-3">
-            <p className="text-white font-semibold">
+            <p className="text-white font-semibold text-pretty">
               <span
                 className={
                   "text-black font-bold px-2 w-fit rounded-lg me-2" +
@@ -113,7 +100,11 @@ const Ticket = ({
 
         <div className="ticket__body text-white">
           <div className="py-2 px-4">
-            <p>{ticket.descripcion}</p>
+            <p className="text-pretty">{ticket.descripcion}</p>
+            <div className="py-6">
+              <img src={ticket.imagen} alt="" />
+
+            </div>
           </div>
 
           <div className="actions flex gap-x-4 ps-7 pb-2 text-[14px] font-semibold">

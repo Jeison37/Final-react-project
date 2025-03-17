@@ -1,22 +1,26 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
 
-import Login from './pages/Login';
-import Signup from './pages/SignUp';
-import NotFound from './pages/NotFound';
-import { PrivateRoute } from './routes/PrivateRoute';
+import Login from "./pages/Login";
+import Signup from "./pages/SignUp";
+import NotFound from "./pages/NotFound";
+import { PrivateRoute } from "./routes/PrivateRoute";
+import { PremiumRoute } from "./routes/PremiumRoute";
 import { Routes, Route, useLocation } from "react-router-dom";
-import CreateTicket from './pages/CreateTicket';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Chat from './pages/Chat';
-import TicketComments from './pages/TicketComments';
-import Dashboard from './pages/Dashboard';
-import Profile from './pages/Profile';
-import PremiumArea from './pages/PremiumArea';
-import HomeUser from './pages/HomeUser';
+import CreateTicket from "./pages/CreateTicket";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Chat from "./pages/Chat";
+import TicketComments from "./pages/TicketComments";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import PremiumArea from "./pages/PremiumArea";
+import HomeUser from "./pages/HomeUser";
+import Footer from "./components/Footer";
+import { Layout } from "./components/Layout";
+import ChatRequests from "./pages/ChatRequests";
 
 function App() {
   const location = useLocation();
@@ -35,31 +39,32 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
 
+        <Route element={<Layout />}>
+          <Route element={<PrivateRoute />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<HomeUser />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/ticket/create" element={<CreateTicket />} />
+            <Route path="/ticket/:id" element={<TicketComments />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/area" element={<PremiumArea />} />
 
+            <Route element={<PremiumRoute />}>
+              <Route path="/chat" element={<Chat />} />
+              <Route path="/chats" element={<ChatRequests />} />
 
-        <Route element={<PrivateRoute />}>
-
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<HomeUser />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/ticket/create" element={<CreateTicket />} />
-          <Route path="/ticket/:id" element={<TicketComments />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/area" element={<PremiumArea />} />
-
-
+            </Route>
+          </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {/* {showNavbarFooter && <Footer />} */}
+      {showNavbarFooter && <Footer />}
     </>
   );
 }
 
 export default App;
-
 
 // function App() {
 //   const [count, setCount] = useState(0)

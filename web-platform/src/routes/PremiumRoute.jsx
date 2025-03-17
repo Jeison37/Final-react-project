@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { getCookie } from "../utils/cookie";
 
-export function PrivateRoute() {
+// export const WebSocketContext = createContext(null);
+
+export function PremiumRoute() {
   const [tokenValido, setTokenValido] = useState(null);
   useEffect(()=>{
     const token = getCookie("token");
     const validarSesion = async ()=>{
       try{
-        const res = await axios.get('http://localhost:3000/api/users/auth',{
+        const res = await axios.get('http://localhost:3000/api/users/premium',{
           headers:{
             'authorization': token
           }
@@ -29,5 +31,5 @@ export function PrivateRoute() {
     return <div>Cargando...</div>
   }
 
-  return(tokenValido ? <Outlet/> : <Navigate to="/login"/>);
+  return(tokenValido ? <Outlet/> : <Navigate to="/area"/>);
 };

@@ -34,7 +34,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="h-16 flex justify-between pe-7 shadow-lg shadow-[#0007]  bg-[#1B3D5A]">
+      <nav className="h-16 flex justify-between pe-7 shadow-lg shadow-[#0007]  bg-[#1B3D5A] fixed top-0 left-0 right-0">
         <div className="h-full w-fit text-white ">
           <ul className="h-full w-fit font-medium flex  text-lg">
             <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/" && " gradient-gb")}>
@@ -45,9 +45,16 @@ const Navbar = () => {
               <Link to="/ticket/create">Agregar ticket</Link>
             </li>
             {rol != CONST.ROL.USER && (
+
+              <>
               <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/dashboard"  && " gradient-gb")}>    
                 <Link to="/dashboard">Estadisticas</Link>
               </li> 
+              <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/chats"  && " gradient-gb")}>    
+                <Link to="/chats">Solicitudes de chats</Link>
+              </li> 
+              </>
+
              )}
 
             {rol == CONST.ROL.USER && (

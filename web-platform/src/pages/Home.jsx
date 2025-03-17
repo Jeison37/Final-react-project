@@ -120,7 +120,6 @@ const Home = () => {
   };
 
   const assignTechnician = async (ticketId) => {
-    console.log('hola :>> ', );
     try {
       const response = await axios.put(
         "http://localhost:3000/api/tickets/assign",
@@ -150,7 +149,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="min-h-screen w-full text-white">
+      <div className=" w-full text-white">
         <div className="py-9">
           <h1 className="text-4xl font-bold text-center">Tickets</h1>
         </div>
@@ -223,7 +222,7 @@ const Home = () => {
                                   </span>
                                 </Link>
 
-                                {(rol == CONST.ROL.TECHNICAL) && (
+                                {(rol == CONST.ROL.TECHNICIAN) && (
                                   <>
                                     <button onClick={() => changeStatus(ticket._id, estado === "Resuelto"
                                     ? 0

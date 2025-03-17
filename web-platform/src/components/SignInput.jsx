@@ -1,5 +1,5 @@
 // eslint-disable-next-line react/prop-types
-const SignInput = ({label = "", Name, OnChangeVar, typeVar}) => {
+const SignInput = ({label = "", Name, OnChangeVar, typeVar, type="text"}) => {
 
     const pholder = label.toLowerCase();
     Name ??= pholder;
@@ -14,6 +14,7 @@ const SignInput = ({label = "", Name, OnChangeVar, typeVar}) => {
               </label>
               <div className="w-full h-10" >
                 <input
+                type={type}
                 onChange={OnChangeVar}
                 id={Name} name={Name}
                   className=" size-full px-4 py-4 bg-black"

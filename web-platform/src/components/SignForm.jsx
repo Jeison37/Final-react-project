@@ -17,7 +17,7 @@ const SignForm = ({children,type}) => {
 
         </div>
 
-        <div className="right-side flex items-center relative bg-[#1d2a3d] ">
+        <div className="right-side flex flex-col justify-center relative bg-[#1d2a3d] ">
 
             <SwitchButton type={type}/>
 

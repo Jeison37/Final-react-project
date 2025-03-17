@@ -1,11 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import { CONST } from "../utils/constants";
 import axios from "axios";
+import { getCookie } from "../utils/cookie";
 
 const Chat = () => {
   const socket = useRef(null);
   const [messages, setMessages] = useState([]);
   const inputRef = useRef(null);
+  const token = getCookie("token");
 
   useEffect(() => {
     socket.current = new WebSocket('ws://localhost:8080');
@@ -22,8 +24,15 @@ const Chat = () => {
   }, []);
 
   const createChat = async e  =>  {
-    const res = await axios.post("http://localhost:3000/api/chats")
-    socket.current = new WebSocket('ws://localhost:8080');
+    console.log("Creando");
+    const res = await axios.post("http://localhost:3000/api/chats", {},
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    )
+    console.log('res :>> ', res);
     const data = {type: CONST.WS.CREATE_CHAT, id_chat: res.data._id}
     socket.current.send(JSON.stringify(data));
 
@@ -48,8 +57,8 @@ const Chat = () => {
 
   return (
     <>
-      <div className="min-h-screen w-full text-white">
-        <form onSubmit={sendMessage}>
+      <div className=" w-full text-white">
+        {/* <form onSubmit={sendMessage}>
           <input
             ref={inputRef}
             className="text-black"
@@ -62,7 +71,9 @@ const Chat = () => {
           {messages.map((message, index) => (
             <li key={index}>{message}</li>
           ))}
-        </ul>
+        </ul> */}
+
+
 
         <button className="px-2" onClick={createChat}>
           Solicitar chat en vivo

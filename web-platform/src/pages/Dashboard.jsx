@@ -16,7 +16,7 @@ const Dashboard = () => {
   const rol = getCookie("rol");
   if (rol == CONST.ROL.ADMIN) {
     return <AdminDashboard />;
-  } else if (rol == CONST.ROL.TECHNICAL) {
+  } else if (rol == CONST.ROL.TECHNICIAN) {
     return <TechnicianDashboard />;
   }
 };
