@@ -1,13 +1,17 @@
 import axios from "axios";
 import { getCookie } from "../utils/cookie";
+import { useState } from "react";
+import { Spinner } from "../components/Spinner";
 
 const PremiumArea = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const token = getCookie("token");
 
 
   const handleClick = async () => {
+    setIsLoading(true)
     try {
-      console.log('token :>> ', token);
+      console.log('isLoading :>> ', isLoading);
     const res = await axios.post('http://localhost:3000/api/paypal/create-order',
       {},
       {
@@ -20,9 +24,11 @@ const PremiumArea = () => {
     window.location.replace(res.data.redirectUrl);
 
     } catch (error) {
+      setIsLoading(false)
       console.log(error);
     }
   }
+
     return ( 
         <>
       <div className=" flex justify-center items-center w-full text-white">
@@ -43,15 +49,18 @@ const PremiumArea = () => {
 
               <hr className="border-black border-1 w-full" />
 
-              <div className="flex flex-col gap-y-3 items-center ">
+              <div className="flex flex-col gap-y-3 min-h-60 items-center justify-between ">
 
-                <div className="mb-32">
+                <div className="">
                   <p className=" text-lg">Acceso a todas las funciones</p>
                   <p className=" text-lg">Chats en vivo</p>
                 </div>
 
 
-                <button onClick={ handleClick } className="bg-black py-2 px-4 rounded-lg active:bg-gray-700 text-white font-bold">Pagar con paypal</button>
+                <Spinner isLoading={isLoading} >
+      <button onClick={ handleClick } className="bg-black py-2 px-4 rounded-lg active:bg-gray-700 text-white font-bold">Pagar con paypal</button>
+
+                </Spinner>
 
                 
               </div>

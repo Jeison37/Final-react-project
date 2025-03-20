@@ -3,13 +3,14 @@ import { useCallback, useState } from "react";
 import { getCookie } from "../utils/cookie";
 import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "../components/Spinner";
 
 const CreateTicket = () => {
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const token = getCookie("token");
   const [warn, setWarn] = useState("");
-  
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState({
     titulo: "",
@@ -43,11 +44,13 @@ const CreateTicket = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('image :>> ', image);
+    setIsLoading(true)
 
     for ( const key in data) {
       if (key === "imagen") continue
       if (data[key] === "") {
         setWarn("Todos los campos son obligatorios");
+        setIsLoading(false)
         return
       }
     }
@@ -79,6 +82,7 @@ const CreateTicket = () => {
       
       console.log("res.data :>> ", res.data);
     } catch (error) {
+      setIsLoading(false)
       console.log("error :>> ", error);
     }
   };
@@ -153,7 +157,10 @@ const CreateTicket = () => {
               </div>
             )}
 
-            <button className="gradient-gb py-2 px-6 rounded-full" type="submit">Enviar</button>
+            <Spinner isLoading={isLoading} >
+
+              <button className="gradient-gb py-2 px-6 rounded-full" type="submit">Enviar</button>
+            </Spinner>
           </form>
         </div>
       </div>

@@ -170,7 +170,6 @@ const Home = () => {
                   likes &&
                   tickets.docs.map((ticket) => {
                     const estado = CONST.ESTADOS[ticket.estado];
-                    if (ticket.visibilidad)
                       return (
                         <>
                           <tr key={ticket._id} className="h-12 px-2">

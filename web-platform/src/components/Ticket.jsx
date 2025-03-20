@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { CONST } from "../utils/constants";
 import { formatDate } from "../utils/formatDate";
+import { memo } from "react";
 
-const Ticket = ({
+const Ticket = memo(({
   ticket,
   setRefresh,
   likes,
@@ -10,39 +11,6 @@ const Ticket = ({
   changeStatus,
   assignTechnician,
 }) => {
-  /* 
-{
-	"_id": "67c3282fb7ed169dad7ea4de",
-	"id_usuario": "67c12a61862fa0c2a00fd9e1",
-	"id_tecnico": null,
-	"titulo": "Un error muy grave",
-	"descripcion": "No se como arreglarlo ni describirlo",
-	"estado": 0,
-	"imagen": null,
-	"visibilidad": true,
-	"createdAt": "2025-03-01T15:30:55.742Z",
-	"updatedAt": "2025-03-07T22:12:08.584Z",
-	"__v": 0,
-	"likes": [],
-	"comentarios": [],
-	"informante": {
-		"_id": "67c12a61862fa0c2a00fd9e1",
-		"nombre": "Pedro",
-		"apellido": "Perez",
-		"username": "Pedro el destructor",
-		"email": "pedro@gmail.com",
-		"password": "$2b$10$Zuk73jhxaKK4d8XaW6O7iOGr2vo/peNzVMJkj.7N/6Mdlg6X6EdXC",
-		"rol": "0",
-		"imagen": null,
-		"direccion": "urb portal de carabobo ",
-		"intentosFallidos": 0,
-		"fechaBloqueo": null,
-		"createdAt": "2025-02-28T03:15:45.162Z",
-		"updatedAt": "2025-02-28T03:15:45.162Z",
-		"__v": 0
-	}
-}
-*/
 
   const estado = CONST.ESTADOS[ticket.estado];
   
@@ -138,6 +106,6 @@ const Ticket = ({
       </div>
     </>
   );
-};
-
+}
+)
 export default Ticket;
