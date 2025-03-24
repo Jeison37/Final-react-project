@@ -34,8 +34,8 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="h-16 flex justify-between pe-7 shadow-lg shadow-[#0007]  bg-[#1B3D5A] fixed top-0 left-0 right-0">
-        <div className="h-full w-fit text-white ">
+      <nav className="h-16 flex justify-between shadow-lg shadow-[#0007]  bg-[#1B3D5A] fixed top-0 left-0 right-0">
+        <div className="hidden md:block h-full w-fit text-white ">
           <ul className="h-full w-fit font-medium flex  text-lg">
             <li className={"w-fit h-full px-5 flex items-center " + (location.pathname == "/" && " gradient-gb")}>
               <Link to="/">Home</Link>
@@ -65,11 +65,17 @@ const Navbar = () => {
           </ul>
         </div>
 
+        <div className="flex items-center ps-7 text-white">
+          <button className="md:hidden block text-lg gradient-gb px-5 py-2 h-fit rounded-full font-semibold overflow-hidden w-fit">
+              Menu
+          </button>
+        </div>
+
         <div className="h-full w-fit flex items-center">
           <div
             ref={refMenu}
             onClick={toggleMenu}
-            className="size-fit relative cursor-pointer rounded-full"
+            className="size-fit relative cursor-pointer rounded-full  pe-7"
           >
             <div className="size-11 rounded-full overflow-hidden bg-white">
               <img
@@ -85,9 +91,16 @@ const Navbar = () => {
 
             {open && (
               <div className="p-3 mt-1 w-fit space-y-3 absolute drop font-bold rounded-lg right-0 bg-white ">
-                <Link to="/profile" className="">
-                  Perfil
-                </Link>
+                <div className="">
+                  <Link to="/profile" className="">
+                    Perfil
+                  </Link>
+                </div>
+                <div className="">
+                  <Link to="/profile" className="">
+                    Pagos
+                  </Link>
+                </div>
                 <button
                   onClick={() => {
                     deleteCookies();

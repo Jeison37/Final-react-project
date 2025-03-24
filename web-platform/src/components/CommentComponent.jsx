@@ -46,7 +46,7 @@ export const CommentComponent = ({ comment, author, setRefresh }) => {
 
         <div className="content bg-[#1b3d5a] md:text-[16px] text-[12px]">
           <div className="content__head">
-            <div className=" px-3 py-2 w-full flex justify-between ">
+            <div className=" px-3 py-2 w-full flex ">
               <div className="user-info flex items-center gap-3 md:gap-5">
                 <h2 className={"font-bold" + colorUsername}>{comment.usuario.username}</h2>
 
@@ -61,7 +61,6 @@ export const CommentComponent = ({ comment, author, setRefresh }) => {
                 </div>
               </div>
 
-              <button className="text-white font-semibold">Editar</button>
             </div>
           </div>
 

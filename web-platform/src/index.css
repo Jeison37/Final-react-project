@@ -6,6 +6,14 @@ body{
   position: relative;
 }
 
+.primary-bg {
+  background-color: #2D9CDB;
+}
+
+.secondary-bg {
+  background-color: #27AE60;
+}
+
 .gradient-gb{
   background: linear-gradient(to right, #27AE60, #2D9CDB);
 }

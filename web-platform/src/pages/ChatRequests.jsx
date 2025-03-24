@@ -1,24 +1,38 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { getCookie } from "../utils/cookie";
 import axios from "axios";
 import { CONST } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../utils/formatDate";
+import { WebSocketContext } from "../context/WebSocketContext";
 
 
 const ChatRequests = () => {
-  const socket = useRef(null);
+  const { socket, isReady } = useContext(WebSocketContext);
   const [refresh, setRefresh] = useState(false);
   const [chats, setChats] = useState([]);
   const navigate = useNavigate();
   const token = getCookie("token");
 
   useEffect(() => {
-    socket.current = new WebSocket('ws://localhost:8080');
 
-    socket.current.addEventListener("message", ({ data }) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    });
+    if (socket && isReady) {
+      
+      console.log('socket :>> ', socket);
+  
+      socket.addEventListener("message", ({ data }) => {
+        console.log('data :>> ', data);
+        const mes = JSON.parse(data)
+
+        if (mes.type === CONST.WS.TECHNICIAN_CONNECTED){
+
+
+
+        }
+
+      });
+      
+    }
 
     // return () => {
     //   if (socket.current) {
@@ -54,10 +68,12 @@ const ChatRequests = () => {
       });
       if (res.status === 200) {
 
-        const data = {type: CONST.WS.CREATE_CHAT, id_chat: res.data._id}
-        socket.current.send(JSON.stringify(data));
+        const data = {type: CONST.WS.TECHNICIAN_CONNECTED, id_chat: res.data._id, token};
+        socket.send(JSON.stringify(data));
 
         setRefresh(!refresh);
+        sessionStorage.setItem("id_chat", res.data._id);
+        navigate("/chat/space");
 
       }
     } catch (error) {
@@ -66,12 +82,9 @@ const ChatRequests = () => {
 
   };
 
-    return ( 
-    <>
-      <div className=" w-full text-white">
-      <div className="py-9">
-          <h1 className="text-4xl font-bold text-center">Solicitudes de chats</h1>
-        </div>
+  const render = () =>{
+    if (chats.length > 0) {
+      return <>
 
         <div className="flex flex-col items-center w-full">
           <div className="w-4/5 pt-1  bg-[#1b3d5a] rounded-lg shadow-2xl shadow-blue-950">
@@ -110,6 +123,23 @@ const ChatRequests = () => {
           </div>
 
         </div>
+
+    </>
+    } else {
+      return <h3 className="text-xl font-bold text-center">Sin solicitudes de chats actualmente</h3>
+      
+    }
+  }
+
+    return ( 
+    <>
+      <div className=" w-full text-white">
+        <div className="py-9">
+          <h1 className="text-4xl font-bold text-center">Solicitudes de chats</h1>
+        </div>
+
+        { chats && render() }
+
       </div>
     </>
      );

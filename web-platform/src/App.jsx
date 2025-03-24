@@ -21,6 +21,8 @@ import HomeUser from "./pages/HomeUser";
 import Footer from "./components/Footer";
 import { Layout } from "./components/Layout";
 import ChatRequests from "./pages/ChatRequests";
+import ChatSpace from "./pages/ChatSpace";
+import EditTicket from "./pages/EditTicket"
 
 function App() {
   const location = useLocation();
@@ -28,9 +30,14 @@ function App() {
   //Definir las rutas en donde no quires que aparezca el navbar y el footer
   const hideNavbarFooter = ["/login", "/signup"];
 
+  const hideFooter = ["/chat/space"]
+
   // Condicionar la visualizacion del navbar para que no aparesca en estas rutas
 
   const showNavbarFooter = !hideNavbarFooter.includes(location.pathname);
+
+  const showFooter = !hideFooter.includes(location.pathname);
+
   return (
     <>
       {showNavbarFooter && <Navbar />}
@@ -46,20 +53,21 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/ticket/create" element={<CreateTicket />} />
             <Route path="/ticket/:id" element={<TicketComments />} />
+            <Route path="/ticket/:id/update" element={<EditTicket />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/area" element={<PremiumArea />} />
 
             <Route element={<PremiumRoute />}>
               <Route path="/chat" element={<Chat />} />
               <Route path="/chats" element={<ChatRequests />} />
-
+              <Route path="/chat/space" element={<ChatSpace />} />
             </Route>
           </Route>
         </Route>
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {showNavbarFooter && <Footer />}
+      {(showNavbarFooter && showFooter) && <Footer />}
     </>
   );
 }

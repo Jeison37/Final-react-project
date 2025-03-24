@@ -1,7 +1,9 @@
+import editIcon from '../assets/edit.svg'
 import { useEffect, useState } from "react";
 import { createCookie, getCookie } from "../utils/cookie";
 import axios from "axios";
 import ProfileRow from "../components/ProfileRow";
+import { Spinner } from '../components/Spinner';
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -76,28 +78,45 @@ const Profile = () => {
           
           <form action="" className="" onSubmit={handleSubmit} encType="multipart/form-data">
             
-            <ProfileRow label="Nombre" valueVar={user.nombre} changeVar={handleInputChange} />
-            <ProfileRow label="Apellido" valueVar={user.apellido} changeVar={handleInputChange} />
-            <ProfileRow label="Nombre de usuario" idVar="username" valueVar={user.username} changeVar={handleInputChange} />
-            <ProfileRow label="Email"  valueVar={user.email} changeVar={handleInputChange} />
-            <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-8 sm:px-6 md:grid-cols-3 lg:px-8 ">
+            <div className="grid md:grid-cols-2 grid-cols-1">
               <div className="">
-                <h2 className="font-bold">Imagen</h2>
+                <ProfileRow label="Nombre" valueVar={user.nombre} changeVar={handleInputChange} />
+                <ProfileRow label="Apellido" valueVar={user.apellido} changeVar={handleInputChange} />
+                <div className="space-y-3 px-4 py-8 sm:px-6 lg:px-8 ">
+                  <div className="">
+                    <h2 className="font-bold text-lg">Imagen</h2>
+                  </div>
+                  <div className="">
+                    <label htmlFor="imagen" className="rounded-full size-fit block relative cursor-pointer">
+                      <div className="size-16 rounded-full overflow-hidden bg-white">
+                                  <img
+                          className="size-full"
+                          src={ user.imagen ?? "http://localhost:3000/images/users/profiles/default.webp"}
+                          alt=""
+                        />
+                      </div>
+                      <div className="absolute bottom-0 left-0">
+                        <img src={editIcon} alt="" />
+                      </div>
+                    </label>
+                  </div>
+                  <div className="">
+                    <input className="bg-black" hidden type="file" name="imagen" id="imagen" onChange={(e) => setImagen(e.target.files[0])} />
+                  </div>
+                </div>
               </div>
-              <div className="size-16 rounded-full overflow-hidden bg-white">
-            <img
-                  className="size-full"
-                  src={ user.imagen ?? "http://localhost:3000/images/users/profiles/default.webp"}
-                  alt=""
-                />
-              </div>
+              
               <div className="">
-                <input className="bg-black" type="file" name="imagen" id="imagen" onChange={(e) => setImagen(e.target.files[0])} />
+                <ProfileRow label="Nombre de usuario" idVar="username" valueVar={user.username} changeVar={handleInputChange} />
+                <ProfileRow label="Email"  valueVar={user.email} changeVar={handleInputChange} />
+                <ProfileRow label="Dirección" idVar="direccion" valueVar={user.direccion} changeVar={handleInputChange} />
               </div>
             </div>
-            <ProfileRow label="Dirección" idVar="direccion" valueVar={user.direccion} changeVar={handleInputChange} />
 
-            <button>Actualizar</button>
+
+
+              <button className="gradient-gb py-2 px-6 rounded-full" type="submit">Actualizar</button>
+
           </form>
 
 

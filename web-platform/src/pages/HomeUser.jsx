@@ -15,6 +15,7 @@ const HomeUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const token = getCookie("token");
   const [observerVar, setObserverVar] = useState(null)
+  const [user, setUser] = useState(null);
 
   const fecthTickets = async (page) => {
     try {
@@ -29,6 +30,8 @@ const HomeUser = () => {
       );
       // console.log("response.data :>> ", response.data);
       if (response.status === 200) {
+        setUser(response.data.user);
+        console.log('user :>> ', user);
         setTickets(response.data);
         setChildren(
           response.data.docs.map( ticket => {
@@ -250,10 +253,11 @@ const HomeUser = () => {
         <div className="md:px-20 px-5 gap-y-10 flex flex-col items-center w-full">
           {children &&
             children.map((ticket) => {
-              // console.log('likes :>> ', likes);
+              console.log('user :>> ', user);
               if (ticket.visibilidad)
                 return (
                   <Ticket
+                    user={user}
                     key={ticket._id}
                     ticket={ticket}
                     toggleLike={toggleLike}

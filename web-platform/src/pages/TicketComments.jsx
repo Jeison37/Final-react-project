@@ -14,8 +14,8 @@ const TicketComments = () => {
   const [refresh, setRefresh] = useState(false);
   const [newComment, setNewComment] = useState("");
   const [liked, setLiked] = useState(false);
+  const [user, setUser] = useState(null);
   const token = getCookie("token");
-
   useEffect(() => {
     const fecthTicket = async () => {
       try {
@@ -28,6 +28,8 @@ const TicketComments = () => {
           }
         );
         if (response.status === 200) {
+        setUser(response.data.user);
+        console.log('response.data.user :>> ', response.data.user);
           // console.log('response :>> ', response);
           setTicket(response.data.ticket);
           setLiked(response.data.liked);
@@ -126,6 +128,7 @@ const TicketComments = () => {
     if (!ticket.informante) return null;
     const { formattedDate, formattedTime } = formatDate(ticket.createdAt);
     const estado = CONST.ESTADOS[ticket.estado];
+    console.log('user :>> ', user, ticket.id_usuario);
     return (
       <>
         <div className="md:px-20 px-5 pt-20 space-y-6">
@@ -152,7 +155,13 @@ const TicketComments = () => {
                     <span className="text-gray-400">{formattedTime}</span>
                   </div>
                 </div>
-                <button className="text-white font-semibold">Editar</button>
+                              <button  className={"text-white font-semibold " +  (ticket.id_usuario == user ? "" : "hidden")}
+                onClick={() =>
+                  sessionStorage.setItem("edit_ticket", JSON.stringify(ticket))
+                }
+              >
+                <Link to={`/ticket/${ticket._id}/update`}>Editar</Link>
+              </button>
               </div>
               <div className="w-full flex items-center py-2 px-3">
                 <p className="text-white font-semibold text-pretty">
@@ -174,9 +183,9 @@ const TicketComments = () => {
                 <div className="py-6">
                   <img src={ticket.imagen} alt="" />
                 </div>
-              </div>
-              <div className="actions flex gap-x-4 ps-7 pb-2 text-[14px] font-semibold">
-                <button
+              <div className="actions w-full flex justify-between">
+                <div className="flex gap-x-4 ps-7 pb-2 text-[14px] font-semibold">
+                  <button
                   onClick={() => toggleLike(ticket._id)}
                   className={
                     "flex items-center" + (liked ? " text-green-600" : " text-white")
@@ -198,8 +207,32 @@ const TicketComments = () => {
                 </button>
                 <Link to={`/ticket/${ticket._id}`}>
                   <span>{ticket.comentarios.length} Comentarios</span>
-                </Link>
+                </Link></div>
+                <div className={ticket.id_usuario == user ? "" : "hidden"}>
+                  <button
+                    className="text-red-600 font-semibold"
+                    onClick={async () => {
+                      try {
+                        const res = axios.delete(
+                          `http://localhost:3000/api/tickets/${ticket._id}`,
+                          {
+                            headers: {
+                              authorization: getCookie("token"),
+                            },
+                          }
+                        );
+                        setRefresh(refresh => !refresh);
+                      } catch (error) {
+                        console.log("error :>> ", error);
+                      }
+                    }}
+                  >
+                    Eliminar
+                  </button>
+                </div>
               </div>
+              </div>
+              
             </div>
           </div>
           
