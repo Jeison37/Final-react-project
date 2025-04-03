@@ -105,7 +105,7 @@ const Chat = () => {
   return (
     <div className="flex flex-1 items-center justify-center h-full w-full text-white">
 
-      <div className="flex gap-y-4 flex-col justify-center">
+      <div className="flex gap-y-4 flex-col items-center">
         <Spinner isLoading={isLoading}>
           <button className="gradient-gb py-2 px-6 rounded-full" onClick={createChat}>Solicitar chat</button>
         </Spinner>

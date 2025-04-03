@@ -38,7 +38,6 @@ const Login = () => {
     try{
       const res = await axios.post(API_URL, data);
       if(res.status === 200){
-        alert("Usuario logeado con exito");
         setData({
           email: "",
           password: "",
@@ -47,9 +46,9 @@ const Login = () => {
         const info = res.data;
         console.log(info);
         
-        createCookie("token=" + info.token, 4);
-        createCookie("imagen=" + info.imagen, 4);
-        createCookie("rol=" + info.rol, 4);
+        createCookie("token=" + info.token, 365);
+        createCookie("imagen=" + info.imagen, 365);
+        createCookie("rol=" + info.rol, 365);
 
         navigate("/");
       }

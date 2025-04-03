@@ -31,7 +31,7 @@ const CreateTicket = () => {
         };
         reader.readAsDataURL(file);
       } else {
-        alert("Por favor, sube solo imágenes.");
+        setWarn("Por favor, sube solo imágenes.");
       }
     }
   }, []);

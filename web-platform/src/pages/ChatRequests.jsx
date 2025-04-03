@@ -15,34 +15,39 @@ const ChatRequests = () => {
   const token = getCookie("token");
 
   useEffect(() => {
+    if (isReady && socket){
+      const data = {type: CONST.WS.TECHNICIAN_AVAILABLE, token}
+      socket.send(JSON.stringify(data));
+
+      return () => {
+        const data = {type: CONST.WS.TECHNICIAN_UNAVAILABLE, token}
+        socket.send(JSON.stringify(data));
+      }
+    }
+  }, [isReady] );
+
+  useEffect(() => {
 
     if (socket && isReady) {
-      
-      console.log('socket :>> ', socket);
+      console.log("Esta listo el socket");
   
       socket.addEventListener("message", ({ data }) => {
         console.log('data :>> ', data);
         const mes = JSON.parse(data)
 
-        if (mes.type === CONST.WS.TECHNICIAN_CONNECTED){
-
-
-
-        }
+        if (mes.type === CONST.WS.TECHNICIAN_CONNECTED || mes.type === CONST.WS.CREATE_CHAT){
+          console.log("Recargo");
+          setRefresh(!refresh);
+      };
 
       });
       
     }
 
-    // return () => {
-    //   if (socket.current) {
-    //     socket.current.close();
-    //   }
-    // };
-  }, []);
+  }, [isReady]);
 
   useEffect(() => {
-    const fecthChats = async () => {
+    const fetchChats = async () => {
       try {
         const res = await axios.get("http://localhost:3000/api/chats", {
           headers: {
@@ -56,7 +61,7 @@ const ChatRequests = () => {
         console.log(error);
       }
     };
-    fecthChats();
+    fetchChats();
   }, [refresh]);
 
   const addTechnician = async (id) => {
@@ -85,7 +90,7 @@ const ChatRequests = () => {
   const render = () =>{
     if (chats.length > 0) {
       return <>
-
+      
         <div className="flex flex-col items-center w-full">
           <div className="w-4/5 pt-1  bg-[#1b3d5a] rounded-lg shadow-2xl shadow-blue-950">
             <table className="size-full">
@@ -99,7 +104,7 @@ const ChatRequests = () => {
                 </tr>
               </thead>
 
-              <tbody className="tbody-tickets text-center">
+              <tbody className="tbody text-center">
 
         { chats && chats.map((chat) => {
             const { formattedDate, formattedTime } = formatDate(chat.createdAt);

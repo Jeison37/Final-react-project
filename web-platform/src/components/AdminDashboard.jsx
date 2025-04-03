@@ -9,7 +9,7 @@ const AdminDashboard = () => {
   const token = getCookie("token");
 // El administrador podrá ver cuantos técnicos hay a disposición, podrá también observar quien es el técnico que mas problemas a resuelto, y quien es el técnico que menos a resuelto. 
   useEffect(() => {
-    const fecthUsers = async () => {
+    const fetchUsers = async () => {
       try {
         const response = await axios.get(
           "http://localhost:3000/api/tickets/dashboard/admin",
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
         console.log(error);
       }
     };
-    fecthUsers();
+    fetchUsers();
   }, [refresh]);
 
     return (
@@ -70,14 +70,14 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
 
-              <tbody className="tbody-tickets text-center">
+              <tbody className="tbody text-center">
 
         { count && count.technicianList.map(technician => {
             
         
        return (
           <>
-          <tr key={technician._id} className="h-10 border-[#E7E7E7] border-b border-solid">
+          <tr key={technician._id} className="h-10 row">
 
                 <td className="px-2 py-1">{technician.username}</td>
                 <td className="px-2 py-1">{technician.total}</td>

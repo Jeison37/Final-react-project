@@ -13,6 +13,10 @@ export const CONST = Object.freeze({
     WS:{
         CREATE_CHAT:0,
         TECHNICIAN_CONNECTED:1,
-        MESSAGE:2
+        MESSAGE:2,
+        TECHNICIAN_AVAILABLE:3,
+        TECHNICIAN_UNAVAILABLE:4,
+        CHANGE_STATE:5,
+        LEAVE_CHAT:6
     }
 });

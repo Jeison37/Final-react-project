@@ -13,7 +13,7 @@ const TicketsTable = ({ url, refresh, setRefresh }) => {
   const rol = getCookie("rol");
 
   useEffect(() => {
-    const fecthTickets = async () => {
+    const fetchTickets = async () => {
       try {
         const response = await axios.post(
           url,
@@ -32,7 +32,7 @@ const TicketsTable = ({ url, refresh, setRefresh }) => {
         console.log(error);
       }
     };
-    fecthTickets();
+    fetchTickets();
   }, [refresh]);
 
   useEffect(() => {
@@ -155,7 +155,7 @@ const TicketsTable = ({ url, refresh, setRefresh }) => {
               </tr>
             </thead>
 
-            <tbody className="tbody-tickets text-center">
+            <tbody className="tbody text-center">
               {tickets.docs &&
                 likes &&
                 tickets.docs.map((ticket) => {
@@ -163,7 +163,7 @@ const TicketsTable = ({ url, refresh, setRefresh }) => {
                   if (ticket.visibilidad)
                     return (
                       <>
-                        <tr key={ticket._id} className="h-12 px-2">
+                        <tr key={ticket._id} className="h-12 px-2 row">
                           <td className="">
                             <div
                               className={

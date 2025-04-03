@@ -16,7 +16,7 @@ const TechnicianDashboard = () => {
   };
 
   useEffect(() => {
-    const fecthTickets = async () => {
+    const fetchTickets = async () => {
       try {
         const response = await axios.get(
           "http://localhost:3000/api/tickets/dashboard",
@@ -35,7 +35,7 @@ const TechnicianDashboard = () => {
         console.log(error);
       }
     };
-    fecthTickets();
+    fetchTickets();
   }, [refresh]);
 
     return (

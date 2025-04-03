@@ -17,7 +17,7 @@ const HomeUser = () => {
   const [observerVar, setObserverVar] = useState(null)
   const [user, setUser] = useState(null);
 
-  const fecthTickets = async (page) => {
+  const fetchTickets = async (page) => {
     try {
       const response = await axios.post(
         API_URL,
@@ -103,7 +103,7 @@ const HomeUser = () => {
 
   useEffect(() => {
 
-    fecthTickets(currentPage);
+    fetchTickets(currentPage);
   }, [])
 
 // MARK: SET-OBSERVER
@@ -248,7 +248,7 @@ const HomeUser = () => {
     <>
       <div className="min-h-screen w-full text-white">
         <div className="py-9">
-          <h1 className="text-4xl font-bold text-center">Tickets <button onClick={() => console.log(children)}>Child</button></h1>
+          <h1 className="text-4xl font-bold text-center">Tickets </h1>
         </div>
         <div className="md:px-20 px-5 gap-y-10 flex flex-col items-center w-full">
           {children &&
@@ -264,6 +264,7 @@ const HomeUser = () => {
                     changeStatus={changeStatus}
                     assignTechnician={assignTechnician}
                     likes={likes}
+                    rol={tickets.rol}
                   />
                 );
             })}

@@ -12,6 +12,7 @@ const Ticket = memo(
     likes,
     toggleLike,
     user,
+    rol,
     changeStatus,
     assignTechnician,
   }) => {
@@ -109,7 +110,7 @@ const Ticket = memo(
                     <span>{ticket.commentsCount} Comentarios</span>
                   </Link>
                 </div>
-                <div className={ticket.id_usuario._id == user ? "" : "hidden"}>
+                <div className={ticket.id_usuario._id == user  || rol == CONST.ROL.ADMIN ? "" : "hidden"}>
                   <button
                     className="text-red-600 font-semibold"
                     onClick={async () => {

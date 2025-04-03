@@ -36,11 +36,15 @@ body{
   background-color: #00cc6d;
 }
 
-.tbody-tickets >  tr.actions:not(:last-child) {
+.tbody >  tr.actions:not(:last-child) {
   border-bottom: 1px solid #E7E7E7;
   
 }
 
+.tbody >  tr.row:not(:last-child) {
+  border-bottom: 1px solid #E7E7E7;
+  
+}
 /* Form ticket */
 
 
@@ -120,6 +124,37 @@ body{
   column-gap: 4rem;
   row-gap: 2rem;
   
+}
+
+/* BillComponent */
+
+.invoice {
+  background: #1b3d5a;
+  background-repeat: no-repeat;
+  color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.invoice h1 {
+  text-align: center;
+  color: #4CAF50;
+}
+.invoice-details, .customer-details, .transaction-details {
+  margin-bottom: 20px;
+}
+.invoice-details p, .customer-details p, .transaction-details p {
+  margin: 5px 0;
+}
+.invoice-details span, .customer-details span, .transaction-details span {
+  font-weight: 800;
+}
+.thank-you {
+  text-align: center;
+  margin-top: 20px;
+  font-style: italic;
 }
 
 /* pagination */

@@ -12,7 +12,7 @@ const Profile = () => {
   const token = getCookie("token");
 
   useEffect(() => {
-    const fecthUser = async () => {
+    const fetchUser = async () => {
       try {
         const res = await axios.get("http://localhost:3000/api/users/profile", {
           headers: {
@@ -26,7 +26,7 @@ const Profile = () => {
         console.log(error);
       }
     };
-    fecthUser();
+    fetchUser();
   }, [refresh]);
 
   const handleSubmit = async (e) => {

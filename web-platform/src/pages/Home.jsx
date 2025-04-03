@@ -15,7 +15,7 @@ const Home = () => {
   const rol = getCookie("rol");
 
   useEffect(() => {
-    const fecthTickets = async () => {
+    const fetchTickets = async () => {
       try {
         const response = await axios.post(
           API_URL,
@@ -36,7 +36,7 @@ const Home = () => {
         console.log(error);
       }
     };
-    fecthTickets();
+    fetchTickets();
   }, [refresh]);
 
   useEffect(() => {
@@ -165,7 +165,7 @@ const Home = () => {
                 </tr>
               </thead>
 
-              <tbody className="tbody-tickets text-center">
+              <tbody className="tbody text-center">
                 {tickets.docs &&
                   likes &&
                   tickets.docs.map((ticket) => {
@@ -229,6 +229,29 @@ const Home = () => {
                                     <button onClick={() => assignTechnician(ticket._id)} className="">Asignarse</button>
                                   </>
                                 )}
+
+                              {tickets.rol == CONST.ROL.ADMIN && (
+                                <button
+                                  className="text-red-600 font-semibold"
+                                  onClick={async () => {
+                                    try {
+                                      const res = axios.delete(
+                                        `http://localhost:3000/api/tickets/${ticket._id}`,
+                                        {
+                                          headers: {
+                                            authorization: getCookie("token"),
+                                          },
+                                        }
+                                      );
+                                      setRefresh(refresh => !refresh);
+                                    } catch (error) {
+                                      console.log("error :>> ", error);
+                                    }
+                                  }}
+                                >
+                                  Eliminar
+                                </button>
+                              )}
                               </div>
                             </td>
                           </tr>

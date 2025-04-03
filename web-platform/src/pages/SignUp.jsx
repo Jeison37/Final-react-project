@@ -40,7 +40,7 @@ const SignUp = () => {
         return;
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&ñÑ.])[A-Za-z\d@$!%*?&]{8,}$/;
     if (!passwordRegex.test(data.password)) {
         setWarn("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial.");
         return;
@@ -55,7 +55,6 @@ const SignUp = () => {
       );
       console.log('res.status,res :>> ', res.status,res);
       if (res.status === 201) {
-        alert("Usuario registrado con éxito");
         setData({
           nombre: "",
           apellido: "",
@@ -68,9 +67,9 @@ const SignUp = () => {
 
         const info = res.data;
         console.log(info);
-        createCookie("token=" + info.token, 4);
-        createCookie("imagen=" + info.imagen, 4);
-        createCookie("rol=" + info.rol, 4);
+        createCookie("token=" + info.token, 365);
+        createCookie("imagen=" + info.imagen, 365);
+        createCookie("rol=" + info.rol, 365);
 
         navigate("/"); 
       }

@@ -23,6 +23,10 @@ import { Layout } from "./components/Layout";
 import ChatRequests from "./pages/ChatRequests";
 import ChatSpace from "./pages/ChatSpace";
 import EditTicket from "./pages/EditTicket"
+import Bills from "./pages/Bills";
+import UserManager from "./pages/UserManager";
+import UserForm from "./pages/UserForm";
+import UserBills from "./pages/UserBills";
 
 function App() {
   const location = useLocation();
@@ -48,14 +52,19 @@ function App() {
 
         <Route element={<Layout />}>
           <Route element={<PrivateRoute />}>
-            <Route path="/home" element={<Home />} />
             <Route path="/" element={<HomeUser />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/bills" element={<Bills />} />
+            <Route path="/bills/user/:user" element={<UserBills />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/ticket/create" element={<CreateTicket />} />
             <Route path="/ticket/:id" element={<TicketComments />} />
             <Route path="/ticket/:id/update" element={<EditTicket />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/area" element={<PremiumArea />} />
+            <Route path="/accounts" element={<UserManager />} />
+            <Route path="/account" element={<UserForm />} />
+            
 
             <Route element={<PremiumRoute />}>
               <Route path="/chat" element={<Chat />} />

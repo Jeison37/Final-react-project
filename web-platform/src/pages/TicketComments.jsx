@@ -17,7 +17,7 @@ const TicketComments = () => {
   const [user, setUser] = useState(null);
   const token = getCookie("token");
   useEffect(() => {
-    const fecthTicket = async () => {
+    const fetchTicket = async () => {
       try {
         const response = await axios.get(
           `http://localhost:3000/api/tickets/main/${params.id}`,
@@ -38,7 +38,7 @@ const TicketComments = () => {
         console.log(error);
       }
     };
-    fecthTicket();
+    fetchTicket();
   }, [refresh]);
 
   const toggleLike = async (ticketId) => {
