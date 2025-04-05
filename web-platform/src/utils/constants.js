@@ -18,5 +18,10 @@ export const CONST = Object.freeze({
         TECHNICIAN_UNAVAILABLE:4,
         CHANGE_STATE:5,
         LEAVE_CHAT:6
+    },
+    CHAT:{
+        MESSAGE:0,
+        LEAVE:1,
+        CHANGE_STATE:2
     }
 });

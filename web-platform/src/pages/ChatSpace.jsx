@@ -14,7 +14,7 @@ const ChatSpace = () => {
   const [chatState, setChatState] = useState(1);
   const states = [1,0]
   const token = getCookie("token")
-  let userData
+  const [userData, setUserData] = useState({});
   let idu;
 
   useEffect(() => {
@@ -27,12 +27,16 @@ const ChatSpace = () => {
         });
         if (res.status === 200) {
           setChatData(res.data.chat);
+          // eslint-disable-next-line react-hooks/exhaustive-deps
           idu = res.data.idu;
-          userData =
+
+          setUserData(
             {
               [res.data.chat.id_usuario._id]: res.data.chat.id_usuario,
               [res.data.chat.id_tecnico._id]: res.data.chat.id_tecnico
             }
+          )
+            
           
         }
       } catch (error) {
@@ -55,13 +59,13 @@ const ChatSpace = () => {
           console.log('userData[mes.user]?.username :>> ', userData[mes.user]?.username);
           // setMessages(prev => [...prev, mes.text_message + ` de ${userData[mes.user].username}`]);
 
-          const message = (
+          const component = (
             <>
             <MessageComponent idm={idm} idu={idu} userData={userData[idm]} content={mes.text_message} />
             </>
           )
 
-          setMessages(prev => [...prev, message]);
+          setMessages(prev => [...prev, {component, type: CONST.CHAT.MESSAGE}]);
           
         }
 
@@ -72,10 +76,9 @@ const ChatSpace = () => {
           // setMessages(prev => [...prev, mes.text_message + ` de ${userData[mes.user].username}`]);
           const estado = CONST.ESTADOS[chatState];
 
-          const message = (
+          const component = (
             <>
-            <div className="w-full gap-2 flex flex-col items-center">
-              <p className="">El tecnico a cambiado el estado a</p>
+
               <div
                                 className={
                                   "text-black font-bold px-2 w-fit rounded-lg mx-auto" +
@@ -86,11 +89,26 @@ const ChatSpace = () => {
                               >
                                 {estado}
                               </div>
-            </div>
             </>
           )
 
-          setMessages(prev => [...prev, message]);
+          setMessages(prev => [...prev, {component, type: CONST.CHAT.CHANGE_STATE}]);
+          
+        }
+
+
+        if (mes.type === CONST.WS.LEAVE_CHAT){
+
+          console.log('userData[mes.user] :>> ', userData[mes.user]);
+          console.log('userData[mes.user]?.username :>> ', userData[mes.user]?.username);
+
+          const component = (
+            <>
+              <p className="text-xl" >{userData[mes.user]?.username} salio del chat </p>
+            </>
+          )
+
+          setMessages(prev => [...prev, {component, type: CONST.CHAT.LEAVE}]);
           
         }
       };
@@ -128,7 +146,7 @@ const ChatSpace = () => {
 
           const data = {type: CONST.WS.CHANGE_STATE, id_chat , token}
           socket.send(JSON.stringify(data));
-          setChatState(states[chatState])
+          setChatState(states[chatState]);
           
         }
       } catch (error) {
@@ -137,6 +155,14 @@ const ChatSpace = () => {
     }
   }
 
+  const leaveChat = async () =>{
+    if (isReady && socket) {
+      const data = {type: CONST.WS.LEAVE_CHAT, id_chat , token}
+      socket.send(JSON.stringify(data));
+      window.history.back();
+        
+    }
+  }
 
   if (!isReady) {
     return <div>Conectando al chat...</div>;
@@ -160,7 +186,7 @@ const ChatSpace = () => {
 
         <div className="w-full flex flex-1 flex-col pt-20 md:pb-0 pb-6">
           <ul>
-            <li className="sticky top-36">
+            <li style={{zIndex: -1}} className="sticky top-36">
               <div className="flex items-center justify-center">
               <span
                   className={
@@ -171,9 +197,30 @@ const ChatSpace = () => {
                 </span>
               </div>
             </li>
-            {messages.map((msg, i) => (
-              <li key={i}>{msg}</li>
-            ))}
+            {messages.map((msg, i) => {
+              if (msg.type === CONST.CHAT.MESSAGE){
+                return <li key={i}>{msg.component}</li>
+                
+              }
+
+              if (msg.type === CONST.CHAT.CHANGE_STATE){
+                return <>
+                  <li key={-i} className="mb-2 flex items-center justify-center"> 
+                    <p className="">El tecnico a cambiado el estado a</p>
+                  
+                  </li>
+                  <li key={i} style={{zIndex: i}} className="sticky top-36">{msg.component}</li>                
+                </>
+              }
+
+              if (msg.type === CONST.CHAT.LEAVE){
+                return <li key={i}>{msg.component}</li>
+                
+
+                
+              }
+            }
+            )}
           </ul>
         </div>
 
@@ -194,8 +241,8 @@ const ChatSpace = () => {
           </form>
 
           <div className="flex gap-2">
-            <button className="bg-red-500 px-4 py-2 rounded-lg">Abandonar chat</button>
-            <button className="bg-green-500 px-4 py-2 rounded-lg">Cambiar estado</button>
+            <button onClick={leaveChat} className="bg-red-500 px-4 py-2 rounded-lg">Abandonar chat</button>
+            <button onClick={changeChatState} className="bg-green-500 px-4 py-2 rounded-lg">Cambiar estado</button>
           </div>
         </div>
 
